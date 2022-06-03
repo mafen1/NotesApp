@@ -12,7 +12,7 @@ interface NotesDao {
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     suspend fun addNotes(notes: Notes)
-
-    @Query("SELECT * FROM user_table ORDER BY id ASC")
-    fun readAllData(): MutableLiveData<List<Notes>>
+//
+//    @Query("SELECT * FROM 'user_table' ORDER BY id ASC")
+//    fun readAllData(): MutableLiveData<List<Notes>>
 }

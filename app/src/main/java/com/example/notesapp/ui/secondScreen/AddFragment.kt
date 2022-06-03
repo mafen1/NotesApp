@@ -5,17 +5,57 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.example.notesapp.R
+import androidx.lifecycle.ViewModelProvider
+import com.example.notesapp.data.models.Notes
+import com.example.notesapp.databinding.FragmentAddBinding
+import com.example.notesapp.ui.mainScreen.MainViewModel
+import com.google.android.material.snackbar.Snackbar
 
 class AddFragment : Fragment() {
+    private lateinit var binding: FragmentAddBinding
+    lateinit var viewModel: SecondViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_add, container, false)
+    ): View {
+        binding = FragmentAddBinding.inflate(inflater, container, false)
+        viewModel = ViewModelProvider(this)[SecondViewModel::class.java]
+        initView()
+
+
+        return binding.root
     }
 
+    private fun initView() {
+        //TODO присвоить норм id кнопке
+        binding.button.setOnClickListener{
+            insertDataToDataBase()
+        }
+    }
+
+    private fun insertDataToDataBase() {
+        val title = binding.edTitle.text.toString()
+        val subTitle = binding.edSubTitle.text.toString()
+        val notes = binding.edNotes.text.toString()
+
+        if (title.isEmpty() || subTitle.isEmpty() || notes.isEmpty()){
+            Snackbar.make(
+                binding.root,
+                "fill in all the fields",
+                Snackbar.LENGTH_LONG
+            ).show()
+        }else{
+            val notes = Notes(
+                0, title, subTitle, notes
+            )
+            viewModel.addNotes(notes)
+            Snackbar.make(
+                binding.root,
+                "Successful",
+                Snackbar.LENGTH_LONG
+            ).show()
+        }
+    }
 
 }
