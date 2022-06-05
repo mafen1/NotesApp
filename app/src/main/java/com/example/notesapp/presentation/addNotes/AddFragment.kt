@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.example.notesapp.R
@@ -14,23 +15,23 @@ import com.google.android.material.snackbar.Snackbar
 
 class AddFragment : Fragment() {
     private lateinit var binding: FragmentAddBinding
-    lateinit var viewModel: SecondViewModel
+    private val viewModel: SecondViewModel by viewModels<SecondViewModel>()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentAddBinding.inflate(inflater, container, false)
-        viewModel = ViewModelProvider(this)[SecondViewModel::class.java]
         initView()
-
-
         return binding.root
     }
 
     private fun initView() {
         binding.btnSave.setOnClickListener{
             insertDataToDataBase()
+        }
+        binding.btnBack.setOnClickListener {
+            findNavController().navigate(R.id.action_addFragment_to_listFragment)
         }
     }
 

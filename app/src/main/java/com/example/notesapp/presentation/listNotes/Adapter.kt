@@ -10,6 +10,7 @@ import com.example.notesapp.data.models.Notes
 import com.example.notesapp.databinding.ItemNotesBinding
 
 class Adapter : ListAdapter<Notes, Adapter.ViewHolder>(ItemComparator()) {
+
     var notesList = emptyList<Notes>()
         set(newValue) {
             field = newValue
@@ -17,7 +18,7 @@ class Adapter : ListAdapter<Notes, Adapter.ViewHolder>(ItemComparator()) {
         }
 
     inner class ViewHolder(
-        val binding: ItemNotesBinding
+        private val binding: ItemNotesBinding
     ) : RecyclerView.ViewHolder(binding.root) {
         fun bind(notesList: List<Notes>) {
             val notes = notesList[absoluteAdapterPosition]
@@ -27,7 +28,11 @@ class Adapter : ListAdapter<Notes, Adapter.ViewHolder>(ItemComparator()) {
                 tvSubTitle.text = notes.subTitle
                 tvNotes.text = notes.notesText
 
+                rowLayout.setOnClickListener{
+//                    val action = ListFra
+                }
             }
+
         }
     }
 

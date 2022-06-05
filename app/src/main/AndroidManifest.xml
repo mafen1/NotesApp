@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.example.notesapp">
 
     <application
@@ -9,10 +10,12 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.NotesApp">
+        android:theme="@style/Theme.NotesApp"
+        >
         <activity
-            android:name=".presentation.addNotes.NotesActivity"
-            android:exported="false" />
+            android:name=".presentation.addNotes.AddFragment"
+            android:exported="false"
+            tools:ignore="Instantiatable" />
         <activity
             android:name=".presentation.listNotes.CreateNotesActivity"
             android:exported="true">
