@@ -28,7 +28,7 @@ class AddFragment : Fragment() {
         return binding.root
     }
 
-    private fun initView() {я
+    private fun initView() {
         binding.btnSave.setOnClickListener{
             insertDataToDataBase()
         }
