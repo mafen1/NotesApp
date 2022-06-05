@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".ui.secondScreen.AddFragment">
+    tools:context=".presentation.addNotes.AddFragment">
 
     <EditText
         android:id="@+id/edTitle"
@@ -59,7 +59,7 @@
         android:textColorHint="#546E7A"/>
 
     <Button
-        android:id="@+id/button"
+        android:id="@+id/btnSave"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="24dp"

@@ -1,4 +1,4 @@
-package com.example.notesapp.ui.secondScreen
+package com.example.notesapp.presentation.addNotes
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -6,9 +6,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
+import com.example.notesapp.R
 import com.example.notesapp.data.models.Notes
 import com.example.notesapp.databinding.FragmentAddBinding
-import com.example.notesapp.ui.mainScreen.MainViewModel
 import com.google.android.material.snackbar.Snackbar
 
 class AddFragment : Fragment() {
@@ -27,9 +28,8 @@ class AddFragment : Fragment() {
         return binding.root
     }
 
-    private fun initView() {
-        //TODO присвоить норм id кнопке
-        binding.button.setOnClickListener{
+    private fun initView() {я
+        binding.btnSave.setOnClickListener{
             insertDataToDataBase()
         }
     }
@@ -55,6 +55,7 @@ class AddFragment : Fragment() {
                 "Successful",
                 Snackbar.LENGTH_LONG
             ).show()
+            findNavController().navigate(R.id.action_addFragment_to_listFragment)
         }
     }
 

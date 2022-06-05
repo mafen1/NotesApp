@@ -1,5 +1,6 @@
-package com.example.notesapp.data.dao
+package com.example.notesapp.data.cache.database
 
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.room.Dao
 import androidx.room.Insert
@@ -12,7 +13,12 @@ interface NotesDao {
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     suspend fun addNotes(notes: Notes)
-//
-//    @Query("SELECT * FROM 'user_table' ORDER BY id ASC")
-//    fun readAllData(): MutableLiveData<List<Notes>>
+
+
+    @Query("SELECT * FROM 'user_table' ORDER BY id ASC")
+    fun readAllData(): LiveData<List<Notes>>
+
+    @Query("DELETE FROM 'user_table' ")
+    suspend fun deleteDataBase()
 }
+
