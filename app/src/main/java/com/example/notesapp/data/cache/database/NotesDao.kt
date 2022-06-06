@@ -2,10 +2,7 @@ package com.example.notesapp.data.cache.database
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.room.Dao
-import androidx.room.Insert
-import androidx.room.OnConflictStrategy
-import androidx.room.Query
+import androidx.room.*
 import com.example.notesapp.data.models.Notes
 
 @Dao
@@ -14,6 +11,11 @@ interface NotesDao {
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     suspend fun addNotes(notes: Notes)
 
+    @Query("SELECT * FROM 'user_table' WHERE id =:id")
+    suspend fun getCurrentNote(id:Int) : Notes
+
+    @Update
+    suspend fun updateNotes(notes: Notes)
 
     @Query("SELECT * FROM 'user_table'")
     fun readAllData(): LiveData<List<Notes>>

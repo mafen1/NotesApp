@@ -11,23 +11,31 @@ import androidx.navigation.fragment.findNavController
 import com.example.notesapp.R
 import com.example.notesapp.data.models.Notes
 import com.example.notesapp.databinding.FragmentAddBinding
+import com.example.notesapp.presentation.listNotes.Adapter
 import com.google.android.material.snackbar.Snackbar
 
 class AddFragment : Fragment() {
     private lateinit var binding: FragmentAddBinding
     private val viewModel: SecondViewModel by viewModels<SecondViewModel>()
-
+    private val adapter = Adapter()
+    var i = 2
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentAddBinding.inflate(inflater, container, false)
-        initView()
+
         return binding.root
     }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        initView()
+        initData()
+    }
+
     private fun initView() {
-        binding.btnSave.setOnClickListener{
+        binding.btnSave.setOnClickListener {
             insertDataToDataBase()
         }
         binding.btnBack.setOnClickListener {
@@ -40,13 +48,13 @@ class AddFragment : Fragment() {
         val subTitle = binding.edSubTitle.text.toString()
         val notes = binding.edNotes.text.toString()
 
-        if (title.isEmpty() || subTitle.isEmpty() || notes.isEmpty()){
+        if (title.isEmpty() || subTitle.isEmpty() || notes.isEmpty()) {
             Snackbar.make(
                 binding.root,
                 "fill in all the fields",
                 Snackbar.LENGTH_LONG
             ).show()
-        }else{
+        } else {
             val notes = Notes(
                 0, title, subTitle, notes
             )
@@ -60,4 +68,13 @@ class AddFragment : Fragment() {
         }
     }
 
+    private fun initData() {
+        adapter.callBackPosition = {
+            binding.edTitle.setText(viewModel.getCurrentNotes(it).title)
+            binding.edSubTitle.setText(viewModel.getCurrentNotes(it).subTitle)
+            binding.edNotes.setText(viewModel.getCurrentNotes(it).notesText)
+        }
+        viewModel.updateNotes(viewModel.getCurrentNotes)
+    }
 }
+

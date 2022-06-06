@@ -5,7 +5,6 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 import kotlinx.android.parcel.Parcelize
 
-@Parcelize
 @Entity(tableName = "user_table")
 data class Notes(
     @PrimaryKey(autoGenerate = true)
@@ -13,4 +12,4 @@ data class Notes(
     var title: String,
     var subTitle: String,
     var notesText: String
-): Parcelable
+)

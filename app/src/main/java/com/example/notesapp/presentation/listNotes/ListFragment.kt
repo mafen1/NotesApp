@@ -1,7 +1,10 @@
 package com.example.notesapp.presentation.listNotes
 
+import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.*
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -10,6 +13,7 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.notesapp.R
 import com.example.notesapp.databinding.FragmentListBinding
+import com.example.notesapp.presentation.updateNotes.UpdateFragment
 
 class ListFragment : Fragment() {
     private lateinit var binding: FragmentListBinding
@@ -32,6 +36,8 @@ class ListFragment : Fragment() {
 
         setHasOptionsMenu(true)
         initView()
+        initObserves()
+        initData()
     }
 
     private fun initView() {
@@ -42,14 +48,9 @@ class ListFragment : Fragment() {
         binding.floatingActionButton.setOnClickListener {
             findNavController().navigate(R.id.action_listFragment_to_addFragment)
         }
-        adapter.callBackPosition = {
 
-        }
 
-        viewModel.readAllData.observe(viewLifecycleOwner, Observer {
-            adapter.notesList = it
-            adapter.notifyDataSetChanged()
-        })
+
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
@@ -62,5 +63,16 @@ class ListFragment : Fragment() {
             R.id.menu_delete -> viewModel.deleteDataBase()
         }
         return super.onOptionsItemSelected(item)
+    }
+    private fun initObserves(){
+        viewModel.readAllData.observe(viewLifecycleOwner, Observer {
+            adapter.notesList = it
+            adapter.notifyDataSetChanged()
+        })
+    }
+    private fun initData(){
+        adapter.callBackPosition ={
+            findNavController().navigate(R.id.action_listFragment_to_addFragment)
+        }
     }
 }

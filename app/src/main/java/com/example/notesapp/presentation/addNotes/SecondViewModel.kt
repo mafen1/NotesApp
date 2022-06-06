@@ -14,6 +14,7 @@ import kotlinx.coroutines.launch
 class SecondViewModel(application: Application): AndroidViewModel(application) {
 
     private val readAllData: LiveData<List<Notes>>
+     lateinit var getCurrentNotes: Notes
     private val repository: UserRepository
 
     init {
@@ -21,7 +22,17 @@ class SecondViewModel(application: Application): AndroidViewModel(application) {
         repository = UserRepository(userDao)
         readAllData = userDao.readAllData()
     }
-
+    fun getCurrentNotes(id:Int): Notes{
+        viewModelScope.launch(Dispatchers.IO) {
+           repository.getCurrentNotes(id)
+        }
+        return repository.getCurrentNotes(id)
+    }
+    fun updateNotes(notes: Notes){
+        viewModelScope.launch(Dispatchers.IO) {
+            repository.updateNotes(notes)
+        }
+    }
     fun addNotes(notes: Notes){
         viewModelScope.launch(Dispatchers.IO) {
             repository.addNotes(notes)

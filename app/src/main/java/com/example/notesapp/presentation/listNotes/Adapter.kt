@@ -33,10 +33,9 @@ class Adapter : ListAdapter<Notes, Adapter.ViewHolder>(ItemComparator()) {
                 tvTitle.text = notes.title
                 tvSubTitle.text = notes.subTitle
                 tvNotes.text = notes.notesText
-                val action = ListFragme
-                rowLayout.setOnClickListener {
-
-                }
+            }
+            binding.rowLayout.setOnClickListener{
+                callBackPosition?.invoke(absoluteAdapterPosition)
             }
 
         }
