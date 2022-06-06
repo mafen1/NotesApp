@@ -1,5 +1,8 @@
 package com.example.notesapp.presentation.listNotes
 
+import android.app.DirectAction
+import android.content.Intent
+import android.graphics.Path
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -8,8 +11,11 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.notesapp.data.models.Notes
 import com.example.notesapp.databinding.ItemNotesBinding
+import com.example.notesapp.presentation.addNotes.AddFragment
 
 class Adapter : ListAdapter<Notes, Adapter.ViewHolder>(ItemComparator()) {
+
+    var callBackPosition: ((position: Int) -> Unit)? = null
 
     var notesList = emptyList<Notes>()
         set(newValue) {
@@ -27,9 +33,9 @@ class Adapter : ListAdapter<Notes, Adapter.ViewHolder>(ItemComparator()) {
                 tvTitle.text = notes.title
                 tvSubTitle.text = notes.subTitle
                 tvNotes.text = notes.notesText
+                val action = ListFragme
+                rowLayout.setOnClickListener {
 
-                rowLayout.setOnClickListener{
-//                    val action = ListFra
                 }
             }
 

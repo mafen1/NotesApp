@@ -15,7 +15,7 @@ interface NotesDao {
     suspend fun addNotes(notes: Notes)
 
 
-    @Query("SELECT * FROM 'user_table' ORDER BY id ASC")
+    @Query("SELECT * FROM 'user_table'")
     fun readAllData(): LiveData<List<Notes>>
 
     @Query("DELETE FROM 'user_table' ")

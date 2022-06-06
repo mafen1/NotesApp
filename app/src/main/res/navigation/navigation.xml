@@ -9,33 +9,36 @@
         android:id="@+id/listFragment"
         android:name="com.example.notesapp.presentation.listNotes.ListFragment"
         android:label="fragment_list"
-        tools:layout="@layout/fragment_list" >
+        tools:layout="@layout/fragment_list">
         <action
             android:id="@+id/action_listFragment_to_addFragment"
             app:destination="@id/addFragment" />
         <action
-            android:id="@+id/action_listFragment_to_updateFragment"
-            app:destination="@id/updateFragment" />
+            android:id="@+id/action_listFragment_to_updateFragment2"
+            app:destination="@id/updateFragment2" />
+
+
     </fragment>
     <fragment
         android:id="@+id/addFragment"
         android:name="com.example.notesapp.presentation.addNotes.AddFragment"
         android:label="fragment_add"
-        tools:layout="@layout/fragment_add" >
+        tools:layout="@layout/fragment_add">
         <action
             android:id="@+id/action_addFragment_to_listFragment"
             app:destination="@id/listFragment" />
     </fragment>
     <fragment
-        android:id="@+id/updateFragment"
+        android:id="@+id/updateFragment2"
         android:name="com.example.notesapp.presentation.updateNotes.UpdateFragment"
-        android:label="update"
+        android:label="fragment_update"
         tools:layout="@layout/fragment_update" >
         <action
-            android:id="@+id/action_updateFragment_to_listFragment"
+            android:id="@+id/action_updateFragment2_to_listFragment"
             app:destination="@id/listFragment" />
         <argument
-            android:name="currentNotes"
+            android:name="currentUser"
             app:argType="com.example.notesapp.data.models.Notes" />
     </fragment>
+
 </navigation>

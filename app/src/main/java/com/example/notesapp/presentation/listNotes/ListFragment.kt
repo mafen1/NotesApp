@@ -42,7 +42,9 @@ class ListFragment : Fragment() {
         binding.floatingActionButton.setOnClickListener {
             findNavController().navigate(R.id.action_listFragment_to_addFragment)
         }
+        adapter.callBackPosition = {
 
+        }
 
         viewModel.readAllData.observe(viewLifecycleOwner, Observer {
             adapter.notesList = it
