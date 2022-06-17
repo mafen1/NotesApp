@@ -1,38 +1,40 @@
-package com.example.notesapp.presentation.listNotes
+package com.example.notesapp.presentation.listNotes.fragment
 
-import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.*
-import android.widget.Toast
+import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.setFragmentResult
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.notesapp.R
+import com.example.notesapp.data.Repository.UserRepository
+import com.example.notesapp.data.cache.database.UserDatabase
 import com.example.notesapp.databinding.FragmentListBinding
-import com.example.notesapp.presentation.updateNotes.UpdateFragment
+import com.example.notesapp.presentation.listNotes.viewModel.ListViewModel
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class ListFragment : Fragment() {
     private lateinit var binding: FragmentListBinding
-    private lateinit var viewModel: MainViewModel
-    private val adapter = Adapter()
+    private val listAdapter = ListAdapter()
+    private val viewModel: ListViewModel by viewModels()
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
         // Inflate the layout for this fragment
-
         binding = FragmentListBinding.inflate(inflater, container, false)
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewModel = ViewModelProvider(this)[MainViewModel::class.java]
 
         setHasOptionsMenu(true)
         initView()
@@ -41,7 +43,7 @@ class ListFragment : Fragment() {
     }
 
     private fun initView() {
-        binding.recyclerView.adapter = adapter
+        binding.recyclerView.adapter = listAdapter
         binding.recyclerView.layoutManager = GridLayoutManager(activity, 3)
 
         //TODO сделать норм ViewModel без lateinit
@@ -66,12 +68,15 @@ class ListFragment : Fragment() {
     }
     private fun initObserves(){
         viewModel.readAllData.observe(viewLifecycleOwner, Observer {
-            adapter.notesList = it
-            adapter.notifyDataSetChanged()
+            if (it != null) { listAdapter.notesList = it }
+            listAdapter.notifyDataSetChanged()
         })
     }
+
     private fun initData(){
-        adapter.callBackPosition ={
+        // отдаем id другому фрагменту
+        listAdapter.callBackPosition ={ id ->
+            setFragmentResult("key", bundleOf("id" to id))
             findNavController().navigate(R.id.action_listFragment_to_addFragment)
         }
     }

@@ -1,9 +1,5 @@
-package com.example.notesapp.presentation.listNotes
+package com.example.notesapp.presentation.listNotes.fragment
 
-import android.app.DirectAction
-import android.content.Intent
-import android.graphics.Path
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
@@ -11,31 +7,32 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.notesapp.data.models.Notes
 import com.example.notesapp.databinding.ItemNotesBinding
-import com.example.notesapp.presentation.addNotes.AddFragment
 
-class Adapter : ListAdapter<Notes, Adapter.ViewHolder>(ItemComparator()) {
+class ListAdapter :
+    ListAdapter<Notes, com.example.notesapp.presentation.listNotes.fragment.ListAdapter.ViewHolder>(
+        ItemComparator()
+    ) {
 
     var callBackPosition: ((position: Int) -> Unit)? = null
 
-    var notesList = emptyList<Notes>()
-        set(newValue) {
-            field = newValue
+    var notesList = listOf<Notes>()
+        set(value) {
+            field = value
             notifyDataSetChanged()
         }
+
 
     inner class ViewHolder(
         private val binding: ItemNotesBinding
     ) : RecyclerView.ViewHolder(binding.root) {
-        fun bind(notesList: List<Notes>) {
-            val notes = notesList[absoluteAdapterPosition]
+        fun bind(notesList: Notes) {
             binding.apply {
-
-                tvTitle.text = notes.title
-                tvSubTitle.text = notes.subTitle
-                tvNotes.text = notes.notesText
+                tvTitle.text = notesList.title
+                tvSubTitle.text = notesList.subTitle
+                tvNotes.text = notesList.notesText
             }
-            binding.rowLayout.setOnClickListener{
-                callBackPosition?.invoke(absoluteAdapterPosition)
+            binding.rowLayout.setOnClickListener {
+                callBackPosition?.invoke(notesList.id)
             }
 
         }
@@ -63,10 +60,10 @@ class Adapter : ListAdapter<Notes, Adapter.ViewHolder>(ItemComparator()) {
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.bind(notesList)
+        holder.bind(notesList[position])
     }
-    override fun getItemCount(): Int {
-        return notesList.size
-    }
+
+    override fun getItemCount(): Int = notesList.size
+
 
 }

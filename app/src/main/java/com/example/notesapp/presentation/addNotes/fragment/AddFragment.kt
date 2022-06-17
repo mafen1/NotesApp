@@ -1,24 +1,26 @@
-package com.example.notesapp.presentation.addNotes
+package com.example.notesapp.presentation.addNotes.fragment
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.setFragmentResultListener
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.example.notesapp.R
 import com.example.notesapp.data.models.Notes
 import com.example.notesapp.databinding.FragmentAddBinding
-import com.example.notesapp.presentation.listNotes.Adapter
-import com.google.android.material.snackbar.Snackbar
 
+import com.google.android.material.snackbar.Snackbar
+import dagger.hilt.android.AndroidEntryPoint
+
+@AndroidEntryPoint
 class AddFragment : Fragment() {
     private lateinit var binding: FragmentAddBinding
-    private val viewModel: SecondViewModel by viewModels<SecondViewModel>()
-    private val adapter = Adapter()
-    var i = 2
+    private val viewModel: AddViewModel by viewModels()
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -32,6 +34,7 @@ class AddFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         initView()
         initData()
+        initObserves()
     }
 
     private fun initView() {
@@ -69,12 +72,19 @@ class AddFragment : Fragment() {
     }
 
     private fun initData() {
-        adapter.callBackPosition = {
-            binding.edTitle.setText(viewModel.getCurrentNotes(it).title)
-            binding.edSubTitle.setText(viewModel.getCurrentNotes(it).subTitle)
-            binding.edNotes.setText(viewModel.getCurrentNotes(it).notesText)
+        setFragmentResultListener("key"){ _, bundle ->
+            val id = bundle.getInt("id")
+            viewModel.getCurrentNotes(id)
+            Log.d("TAG", id.toString())
         }
-        viewModel.updateNotes(viewModel.getCurrentNotes)
+    }
+    private fun initObserves(){
+        viewModel.note.observe(viewLifecycleOwner){
+            binding.edTitle.setText(it.title)
+            binding.edSubTitle.setText(it.subTitle)
+            binding.edNotes.setText(it.notesText)
+            binding.btnSave.visibility = View.GONE
+        }
     }
 }
 

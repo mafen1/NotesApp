@@ -18,7 +18,7 @@ interface NotesDao {
     suspend fun updateNotes(notes: Notes)
 
     @Query("SELECT * FROM 'user_table'")
-    fun readAllData(): LiveData<List<Notes>>
+    suspend fun readAllData(): List<Notes>
 
     @Query("DELETE FROM 'user_table' ")
     suspend fun deleteDataBase()

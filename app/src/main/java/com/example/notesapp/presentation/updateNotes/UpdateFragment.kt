@@ -8,7 +8,9 @@ import android.view.ViewGroup
 import com.example.notesapp.R
 import com.example.notesapp.databinding.FragmentListBinding
 import com.example.notesapp.databinding.FragmentUpdateBinding
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class UpdateFragment : Fragment() {
     lateinit var binding: FragmentUpdateBinding
     override fun onCreateView(
