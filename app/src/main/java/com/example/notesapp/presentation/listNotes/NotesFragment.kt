@@ -42,13 +42,9 @@ class NotesFragment : Fragment() {
         binding.recyclerView.adapter = listAdapter
         binding.recyclerView.layoutManager = GridLayoutManager(activity, 3)
 
-        //TODO сделать норм ViewModel без lateinit
         binding.floatingActionButton.setOnClickListener {
             findNavController().navigate(R.id.action_listFragment_to_addFragment)
         }
-
-
-
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
@@ -64,7 +60,7 @@ class NotesFragment : Fragment() {
     }
     private fun initObserves(){
         viewModel.readAllData.observe(viewLifecycleOwner, Observer {
-            if (it != null) { listAdapter.notesList = it }
+            listAdapter.notesList = it
             listAdapter.notifyDataSetChanged()
         })
     }
