@@ -13,7 +13,7 @@
         android:theme="@style/Theme.NotesApp"
         >
         <activity
-            android:name=".presentation.addNotes.fragment.AddFragment"
+            android:name=".presentation.addNotes.AddNotesFragment"
             android:exported="false"
             tools:ignore="Instantiatable" />
         <activity

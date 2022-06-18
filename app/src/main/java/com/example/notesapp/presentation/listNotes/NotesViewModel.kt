@@ -1,9 +1,10 @@
-package com.example.notesapp.presentation.listNotes.viewModel
+package com.example.notesapp.presentation.listNotes
 
-import android.app.Application
-import androidx.lifecycle.*
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.example.notesapp.data.Repository.UserRepository
-import com.example.notesapp.data.cache.database.UserDatabase
 import com.example.notesapp.data.models.Notes
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
@@ -11,7 +12,7 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class ListViewModel @Inject constructor(
+class NotesViewModel @Inject constructor(
     private val repository: UserRepository
 ): ViewModel() {
 

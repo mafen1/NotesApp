@@ -1,4 +1,4 @@
-package com.example.notesapp.presentation.listNotes.fragment
+package com.example.notesapp.presentation.listNotes
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -8,18 +8,14 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.notesapp.data.models.Notes
 import com.example.notesapp.databinding.ItemNotesBinding
 
-class ListAdapter :
-    ListAdapter<Notes, com.example.notesapp.presentation.listNotes.fragment.ListAdapter.ViewHolder>(
+class NotesAdapter :
+    ListAdapter<Notes, NotesAdapter.ViewHolder>(
         ItemComparator()
     ) {
 
     var callBackPosition: ((position: Int) -> Unit)? = null
 
     var notesList = listOf<Notes>()
-        set(value) {
-            field = value
-            notifyDataSetChanged()
-        }
 
 
     inner class ViewHolder(

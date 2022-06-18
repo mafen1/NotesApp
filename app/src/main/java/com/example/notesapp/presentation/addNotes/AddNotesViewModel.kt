@@ -1,25 +1,24 @@
-package com.example.notesapp.presentation.addNotes.fragment
+package com.example.notesapp.presentation.addNotes
 
-import android.app.Application
-import androidx.lifecycle.*
-import com.example.notesapp.data.cache.database.UserDatabase
-import com.example.notesapp.data.models.Notes
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.example.notesapp.data.Repository.UserRepository
+import com.example.notesapp.data.models.Notes
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class AddViewModel @Inject constructor(
+class AddNotesViewModel @Inject constructor(
     private val repository: UserRepository
 ): ViewModel() {
 
     private var _note: MutableLiveData<Notes> = MutableLiveData()
     var note: LiveData<Notes> = _note
 
-//    private var _newNote: MutableLiveData<Notes> = MutableLiveData()
-//    var  newNote: LiveData<Notes> =  _newNote
 
     fun getCurrentNotes(id:Int){
         viewModelScope.launch(Dispatchers.IO) {

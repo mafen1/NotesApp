@@ -1,25 +1,24 @@
-package com.example.notesapp.presentation.addNotes.fragment
+package com.example.notesapp.presentation.addNotes
 
 import android.os.Bundle
 import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.setFragmentResultListener
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.example.notesapp.R
+import com.example.notesapp.core.snackbar
 import com.example.notesapp.data.models.Notes
 import com.example.notesapp.databinding.FragmentAddBinding
-
-import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class AddFragment : Fragment() {
+class AddNotesFragment : Fragment() {
     private lateinit var binding: FragmentAddBinding
-    private val viewModel: AddViewModel by viewModels()
+    private val viewModel: AddNotesViewModel by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -35,6 +34,7 @@ class AddFragment : Fragment() {
         initView()
         initData()
         initObserves()
+
     }
 
     private fun initView() {
@@ -42,7 +42,7 @@ class AddFragment : Fragment() {
             insertDataToDataBase()
         }
         binding.btnBack.setOnClickListener {
-            findNavController().navigate(R.id.action_addFragment_to_listFragment)
+            navigation()
         }
     }
 
@@ -52,39 +52,58 @@ class AddFragment : Fragment() {
         val notes = binding.edNotes.text.toString()
 
         if (title.isEmpty() || subTitle.isEmpty() || notes.isEmpty()) {
-            Snackbar.make(
-                binding.root,
-                "fill in all the fields",
-                Snackbar.LENGTH_LONG
-            ).show()
+            snackbar(binding.root, "fill in all the fields")
         } else {
             val notes = Notes(
                 0, title, subTitle, notes
             )
             viewModel.addNotes(notes)
-            Snackbar.make(
-                binding.root,
-                "Successful",
-                Snackbar.LENGTH_LONG
-            ).show()
-            findNavController().navigate(R.id.action_addFragment_to_listFragment)
+            snackbar(binding.root, "Successful")
+            navigation()
+        }
+    }
+
+    private fun updateDataToDataBase(id: Int) {
+        val title = binding.edTitle.text.toString()
+        val subTitle = binding.edSubTitle.text.toString()
+        val notes = binding.edNotes.text.toString()
+
+        if (title.isEmpty() || subTitle.isEmpty() || notes.isEmpty()) {
+            snackbar(binding.root, "fill in all the fields")
+        } else {
+            val notes = Notes(
+                id, title, subTitle, notes
+            )
+            viewModel.updateNotes(notes)
+            snackbar(binding.root, "Successful")
+            navigation()
         }
     }
 
     private fun initData() {
-        setFragmentResultListener("key"){ _, bundle ->
+        setFragmentResultListener("key") { _, bundle ->
             val id = bundle.getInt("id")
             viewModel.getCurrentNotes(id)
             Log.d("TAG", id.toString())
         }
     }
-    private fun initObserves(){
-        viewModel.note.observe(viewLifecycleOwner){
-            binding.edTitle.setText(it.title)
-            binding.edSubTitle.setText(it.subTitle)
-            binding.edNotes.setText(it.notesText)
-            binding.btnSave.visibility = View.GONE
+
+    private fun initObserves() {
+        viewModel.note.observe(viewLifecycleOwner) { notes ->
+
+            binding.edTitle.setText(notes.title)
+            binding.edSubTitle.setText(notes.subTitle)
+            binding.edNotes.setText(notes.notesText)
+            binding.btnSave.text = "Update Text"
+
+            binding.btnSave.setOnClickListener {
+                updateDataToDataBase(notes.id)
+            }
+
         }
     }
+
+    private fun navigation() = findNavController().navigate(R.id.action_addFragment_to_listFragment)
+
 }
 

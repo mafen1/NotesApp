@@ -1,12 +1,9 @@
 package com.example.notesapp.data.Repository
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import com.example.notesapp.data.cache.database.NotesDao
 import com.example.notesapp.data.models.Notes
 import javax.inject.Inject
 
-// repository?
 class UserRepository @Inject constructor(private val notesDao: NotesDao) {
 
     suspend fun readAllData(): List<Notes> = notesDao.readAllData()
