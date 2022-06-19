@@ -18,17 +18,18 @@ class NotesAdapter :
     var notesList = listOf<Notes>()
 
 
+
     inner class ViewHolder(
         private val binding: ItemNotesBinding
     ) : RecyclerView.ViewHolder(binding.root) {
-        fun bind(notesList: Notes) {
+        fun bind(notes: Notes) {
             binding.apply {
-                tvTitle.text = notesList.title
-                tvSubTitle.text = notesList.subTitle
-                tvNotes.text = notesList.notesText
+                tvTitle.text = notes.title
+                tvSubTitle.text = notes.subTitle
+                tvNotes.text = notes.notesText
             }
             binding.rowLayout.setOnClickListener {
-                callBackPosition?.invoke(notesList.id)
+                callBackPosition?.invoke(notes.id)
             }
 
         }

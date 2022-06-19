@@ -15,6 +15,7 @@ import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class NotesFragment : Fragment() {
+
     private lateinit var binding: FragmentListBinding
     private val listAdapter = NotesAdapter()
     private val viewModel: NotesViewModel by viewModels()
@@ -56,16 +57,18 @@ class NotesFragment : Fragment() {
         when (item.itemId) {
             R.id.menu_delete -> {
                 viewModel.deleteDataBase()
+                listAdapter.notesList = emptyList()
                 listAdapter.notifyDataSetChanged()
             }
         }
-
         return super.onOptionsItemSelected(item)
     }
 
     private fun initObserves() {
         viewModel.readAllData.observe(viewLifecycleOwner, Observer {
-            listAdapter.notesList = it
+            if (it != null) {
+                listAdapter.notesList = it
+            }
             listAdapter.notifyDataSetChanged()
         })
     }
