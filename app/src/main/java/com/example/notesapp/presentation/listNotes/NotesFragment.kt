@@ -54,20 +54,25 @@ class NotesFragment : Fragment() {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
-            R.id.menu_delete -> viewModel.deleteDataBase()
+            R.id.menu_delete -> {
+                viewModel.deleteDataBase()
+                listAdapter.notifyDataSetChanged()
+            }
         }
+
         return super.onOptionsItemSelected(item)
     }
-    private fun initObserves(){
+
+    private fun initObserves() {
         viewModel.readAllData.observe(viewLifecycleOwner, Observer {
             listAdapter.notesList = it
             listAdapter.notifyDataSetChanged()
         })
     }
 
-    private fun initData(){
+    private fun initData() {
         // отдаем id другому фрагменту
-        listAdapter.callBackPosition ={ id ->
+        listAdapter.callBackPosition = { id ->
             setFragmentResult("key", bundleOf("id" to id))
             findNavController().navigate(R.id.action_listFragment_to_addFragment)
         }

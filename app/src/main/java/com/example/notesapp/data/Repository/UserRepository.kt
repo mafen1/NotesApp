@@ -15,4 +15,5 @@ class UserRepository @Inject constructor(private val notesDao: NotesDao) {
     suspend fun updateNotes(notes: Notes) = notesDao.updateNotes(notes)
 
     suspend fun getCurrentNotes(id:Int): Notes = notesDao.getCurrentNote(id)
+
 }
