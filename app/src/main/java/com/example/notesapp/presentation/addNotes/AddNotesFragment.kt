@@ -42,7 +42,6 @@ class AddNotesFragment : Fragment() {
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.setHomeButtonEnabled(true)
 
-        supportActionBar?.title = ""
         setHasOptionsMenu(true)
 
 
