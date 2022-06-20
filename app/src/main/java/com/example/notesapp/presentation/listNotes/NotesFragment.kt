@@ -33,7 +33,7 @@ class NotesFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        setHasOptionsMenu(true)
+
         initView()
         initObserves()
         initData()
@@ -42,7 +42,7 @@ class NotesFragment : Fragment() {
     private fun initView() {
         binding.recyclerView.adapter = listAdapter
         binding.recyclerView.layoutManager = GridLayoutManager(activity, 3)
-
+        setHasOptionsMenu(true)
         binding.floatingActionButton.setOnClickListener {
             findNavController().navigate(R.id.action_listFragment_to_addFragment)
         }
