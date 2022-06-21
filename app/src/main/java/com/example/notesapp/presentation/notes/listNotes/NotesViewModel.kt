@@ -1,4 +1,4 @@
-package com.example.notesapp.presentation.listNotes
+package com.example.notesapp.presentation.notes.listNotes
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData

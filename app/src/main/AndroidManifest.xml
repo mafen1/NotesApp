@@ -13,11 +13,11 @@
         android:theme="@style/Theme.NotesApp"
         >
         <activity
-            android:name=".presentation.addNotes.AddNotesFragment"
+            android:name=".presentation.notes.addNotes.AddNotesFragment"
             android:exported="false"
             tools:ignore="Instantiatable" />
         <activity
-            android:name=".presentation.CreateNotesActivity"
+            android:name=".presentation.notes.CreateNotesActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

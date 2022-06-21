@@ -1,11 +1,8 @@
-package com.example.notesapp.presentation.listNotes
+package com.example.notesapp.presentation.notes.listNotes
 
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
-import android.text.Spannable
-import android.text.SpannableString
-import android.text.style.ForegroundColorSpan
 import android.view.*
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
@@ -16,7 +13,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.notesapp.R
 import com.example.notesapp.databinding.FragmentListBinding
-import com.example.notesapp.presentation.CreateNotesActivity
+import com.example.notesapp.presentation.notes.CreateNotesActivity
 import dagger.hilt.android.AndroidEntryPoint
 
 
@@ -55,14 +52,14 @@ class NotesFragment : Fragment() {
         val supportActionBar = (activity as CreateNotesActivity?)?.getSupportActionBar()
         supportActionBar?.setBackgroundDrawable(ColorDrawable(Color.parseColor("#10141C")))
         val title = "NotesApp"
-        val s = SpannableString(title)
-        s.setSpan(
-            ForegroundColorSpan(Color.parseColor("#F0E68C")),
-            0,
-            title.length,
-            Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
-        )
-        supportActionBar?.title = s
+//        val s = SpannableString(title)
+//        s.setSpan(
+//            ForegroundColorSpan(Color.parseColor("#F0E68C")),
+//            0,
+//            title.length,
+//            Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
+//        )
+//        supportActionBar?.title = ""
 
         binding.floatingActionButton.setOnClickListener {
             findNavController().navigate(R.id.action_listFragment_to_addFragment)

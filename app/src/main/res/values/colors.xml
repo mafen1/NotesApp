@@ -14,6 +14,7 @@
     <color name="Gray">#808080</color>
     <color name="Silver">#C0C0C0</color>
     <color name="White">#FFFFFF</color>
+    <color name="TransparentWhite">#80FFFFFF</color>
     <color name="Fuchsia">#FF00FF</color>
     <color name="Purple">#800080</color>
     <color name="Red">#FF0000</color>

@@ -38,12 +38,13 @@
             android:layout_width="75dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="24dp"
-            android:layout_marginTop="8dp"
-            android:text=""
-            android:maxLines="1"
-            android:maxLength="11"
+            android:layout_marginTop="2dp"
             android:ellipsize="end"
-            android:textColor="@color/white"
+            android:maxLength="11"
+            android:maxLines="1"
+            android:text=""
+            android:textColor="@color/TransparentWhite"
+
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tvTitle" />
 
@@ -52,16 +53,16 @@
             android:layout_width="75dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="24dp"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="2dp"
             android:layout_marginBottom="16dp"
-            android:text=""
-            android:maxLength="11"
             android:ellipsize="end"
-            android:textColor="@color/white"
+            android:maxLength="11"
+            android:singleLine="true"
+            android:text=""
+            android:textColor="@color/TransparentWhite"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tvSubTitle"
-            android:singleLine="true" />
+            app:layout_constraintTop_toBottomOf="@+id/tvSubTitle" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.cardview.widget.CardView>

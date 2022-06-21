@@ -1,4 +1,4 @@
-package com.example.notesapp.presentation.addNotes
+package com.example.notesapp.presentation.notes.addNotes
 
 import android.os.Bundle
 import android.view.*
@@ -10,7 +10,7 @@ import com.example.notesapp.R
 import com.example.notesapp.core.snackbar
 import com.example.notesapp.data.notes.models.Notes
 import com.example.notesapp.databinding.FragmentAddBinding
-import com.example.notesapp.presentation.CreateNotesActivity
+import com.example.notesapp.presentation.notes.CreateNotesActivity
 import dagger.hilt.android.AndroidEntryPoint
 
 
