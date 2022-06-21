@@ -1,7 +1,6 @@
 package com.example.notesapp.presentation.addNotes
 
 import android.os.Bundle
-import android.util.Log
 import android.view.*
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.setFragmentResultListener
@@ -9,7 +8,7 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.example.notesapp.R
 import com.example.notesapp.core.snackbar
-import com.example.notesapp.data.models.Notes
+import com.example.notesapp.data.notes.models.Notes
 import com.example.notesapp.databinding.FragmentAddBinding
 import com.example.notesapp.presentation.CreateNotesActivity
 import dagger.hilt.android.AndroidEntryPoint

@@ -1,6 +1,11 @@
 package com.example.notesapp.presentation.listNotes
 
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
+import android.text.Spannable
+import android.text.SpannableString
+import android.text.style.ForegroundColorSpan
 import android.view.*
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
@@ -11,7 +16,9 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.notesapp.R
 import com.example.notesapp.databinding.FragmentListBinding
+import com.example.notesapp.presentation.CreateNotesActivity
 import dagger.hilt.android.AndroidEntryPoint
+
 
 @AndroidEntryPoint
 class NotesFragment : Fragment() {
@@ -42,10 +49,30 @@ class NotesFragment : Fragment() {
     private fun initView() {
         binding.recyclerView.adapter = listAdapter
         binding.recyclerView.layoutManager = GridLayoutManager(activity, 3)
+
         setHasOptionsMenu(true)
+
+        val supportActionBar = (activity as CreateNotesActivity?)?.getSupportActionBar()
+        supportActionBar?.setBackgroundDrawable(ColorDrawable(Color.parseColor("#10141C")))
+        val title = "NotesApp"
+        val s = SpannableString(title)
+        s.setSpan(
+            ForegroundColorSpan(Color.parseColor("#F0E68C")),
+            0,
+            title.length,
+            Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
+        )
+        supportActionBar?.title = s
+
         binding.floatingActionButton.setOnClickListener {
             findNavController().navigate(R.id.action_listFragment_to_addFragment)
         }
+//        binding.bottomNavigationView.setOnItemSelectedListener{
+//            when(it.itemId){
+//                R.id.todo -> snackbar(binding.root, "selected todo")
+//            }
+//            true
+//        }
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
@@ -60,9 +87,11 @@ class NotesFragment : Fragment() {
                 listAdapter.notesList = emptyList()
                 listAdapter.notifyDataSetChanged()
             }
+
         }
         return super.onOptionsItemSelected(item)
     }
+
 
     private fun initObserves() {
         viewModel.readAllData.observe(viewLifecycleOwner, Observer {

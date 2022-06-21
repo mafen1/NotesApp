@@ -1,7 +1,7 @@
-package com.example.notesapp.data.Repository
+package com.example.notesapp.data.notes.Repository
 
-import com.example.notesapp.data.cache.database.NotesDao
-import com.example.notesapp.data.models.Notes
+import com.example.notesapp.data.notes.cache.database.NotesDao
+import com.example.notesapp.data.notes.models.Notes
 import javax.inject.Inject
 
 class UserRepository @Inject constructor(private val notesDao: NotesDao) {

@@ -1,8 +1,8 @@
-package com.example.notesapp.data.cache.database
+package com.example.notesapp.data.notes.cache.database
 
 import androidx.room.Database
 import androidx.room.RoomDatabase
-import com.example.notesapp.data.models.Notes
+import com.example.notesapp.data.notes.models.Notes
 
 /**
  * Abstract для расширения класса (если не напишем попросить реализовать неныжные функции)

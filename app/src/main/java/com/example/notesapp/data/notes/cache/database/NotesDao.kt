@@ -1,7 +1,7 @@
-package com.example.notesapp.data.cache.database
+package com.example.notesapp.data.notes.cache.database
 
 import androidx.room.*
-import com.example.notesapp.data.models.Notes
+import com.example.notesapp.data.notes.models.Notes
 
 @Dao
 interface NotesDao {
