@@ -10,7 +10,7 @@ import com.example.notesapp.R
 import com.example.notesapp.core.snackbar
 import com.example.notesapp.data.notes.models.Notes
 import com.example.notesapp.databinding.FragmentAddBinding
-import com.example.notesapp.presentation.notes.CreateNotesActivity
+import com.example.notesapp.presentation.CreateNotesActivity
 import dagger.hilt.android.AndroidEntryPoint
 
 
@@ -70,7 +70,7 @@ class AddNotesFragment : Fragment() {
         val subTitle = binding.edSubTitle.text.toString()
         val notes = binding.edNotes.text.toString()
 
-        if (title.isEmpty() || subTitle.isEmpty() || notes.isEmpty()) {
+        if (title.isEmpty()) {
             snackbar(binding.root, "fill in all the fields")
         } else {
             val notes = Notes(
@@ -87,7 +87,7 @@ class AddNotesFragment : Fragment() {
         val subTitle = binding.edSubTitle.text.toString()
         val notes = binding.edNotes.text.toString()
 
-        if (title.isEmpty() || subTitle.isEmpty() || notes.isEmpty()) {
+        if (title.isEmpty()) {
             snackbar(binding.root, "fill in all the fields")
         } else {
             val notes = Notes(

@@ -4,7 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.notesapp.data.notes.Repository.UserRepository
+import com.example.notesapp.data.notes.Repository.NotesRepositoryImpl
 import com.example.notesapp.data.notes.models.Notes
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
@@ -13,7 +13,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class NotesViewModel @Inject constructor(
-    private val repository: UserRepository
+    private val repository: NotesRepositoryImpl
 ): ViewModel() {
 
     private var _readAllData : MutableLiveData<List<Notes>> = MutableLiveData()

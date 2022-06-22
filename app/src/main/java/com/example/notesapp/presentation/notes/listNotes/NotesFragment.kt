@@ -13,7 +13,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.notesapp.R
 import com.example.notesapp.databinding.FragmentListBinding
-import com.example.notesapp.presentation.notes.CreateNotesActivity
+import com.example.notesapp.presentation.CreateNotesActivity
 import dagger.hilt.android.AndroidEntryPoint
 
 
@@ -49,18 +49,7 @@ class NotesFragment : Fragment() {
 
         setHasOptionsMenu(true)
 
-        val supportActionBar = (activity as CreateNotesActivity?)?.getSupportActionBar()
-        supportActionBar?.setBackgroundDrawable(ColorDrawable(Color.parseColor("#10141C")))
-        val title = "NotesApp"
-//        val s = SpannableString(title)
-//        s.setSpan(
-//            ForegroundColorSpan(Color.parseColor("#F0E68C")),
-//            0,
-//            title.length,
-//            Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
-//        )
-//        supportActionBar?.title = ""
-
+        editActionBar()
         binding.floatingActionButton.setOnClickListener {
             findNavController().navigate(R.id.action_listFragment_to_addFragment)
         }
@@ -105,5 +94,9 @@ class NotesFragment : Fragment() {
             setFragmentResult("key", bundleOf("id" to id))
             findNavController().navigate(R.id.action_listFragment_to_addFragment)
         }
+    }
+    private fun editActionBar(){
+        val supportActionBar = (activity as CreateNotesActivity?)?.getSupportActionBar()
+        supportActionBar?.setBackgroundDrawable(ColorDrawable(Color.parseColor("#10141C")))
     }
 }

@@ -17,7 +17,7 @@
             android:exported="false"
             tools:ignore="Instantiatable" />
         <activity
-            android:name=".presentation.notes.CreateNotesActivity"
+            android:name=".presentation.CreateNotesActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

@@ -4,7 +4,7 @@ import com.example.notesapp.data.notes.cache.database.NotesDao
 import com.example.notesapp.data.notes.models.Notes
 import javax.inject.Inject
 
-class UserRepository @Inject constructor(private val notesDao: NotesDao) {
+class NotesRepositoryImpl @Inject constructor(private val notesDao: NotesDao) {
 
     suspend fun readAllData(): List<Notes> = notesDao.readAllData()
 
@@ -14,6 +14,6 @@ class UserRepository @Inject constructor(private val notesDao: NotesDao) {
 
     suspend fun updateNotes(notes: Notes) = notesDao.updateNotes(notes)
 
-    suspend fun getCurrentNotes(id:Int): Notes = notesDao.getCurrentNote(id)
+    suspend fun getCurrentNotes(id: Int): Notes = notesDao.getCurrentNote(id)
 
 }
