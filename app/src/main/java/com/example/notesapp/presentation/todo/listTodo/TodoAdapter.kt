@@ -16,7 +16,7 @@ class TodoAdapter : ListAdapter<Todo, TodoAdapter.ViewHolder>(ItemComparator()) 
     inner class ViewHolder(private val binding: ItemTodoBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(todo: Todo) {
-
+            binding.checkBox.text = todo.title
         }
     }
 

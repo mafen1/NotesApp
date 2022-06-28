@@ -18,11 +18,7 @@ abstract class UserDatabase : RoomDatabase() {
 }
 val MIGRATION_1_2 = object :Migration(1,2){
     override fun migrate(database: SupportSQLiteDatabase) {
-        database.execSQL(
-            "CREATE TABLE `todo_table` (`id` INTEGER, "
-                    + "`title` TEXT, `description` TEXT ," +
-                    "`dataTime` TEXT, `color` TEXT , PRIMARY KEY(`id`))"
-        )
+        database.execSQL("CREATE TABLE IF NOT EXISTS `todo_table` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `title` TEXT NOT NULL, `description` TEXT NOT NULL, `dataTime` TEXT NOT NULL, `color` TEXT NOT NULL)")
     }
 
 }
