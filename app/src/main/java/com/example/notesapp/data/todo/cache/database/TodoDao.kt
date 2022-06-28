@@ -1,24 +1,22 @@
 package com.example.notesapp.data.todo.cache.database
 
-import androidx.room.Insert
-import androidx.room.OnConflictStrategy
-import androidx.room.Query
-import androidx.room.Update
+import androidx.room.*
 import com.example.notesapp.data.todo.models.Todo
 
+@Dao
 interface TodoDao {
     @Insert(onConflict = OnConflictStrategy.IGNORE)
-    suspend fun addNotes(todo: Todo)
+    suspend fun addTodo(todo: Todo)
 
     @Query("SELECT * FROM 'todo_table' WHERE id =:id")
-    suspend fun getCurrentNote(id:Int) : Todo
+    suspend fun getCurrentTodo(id:Int) : Todo
 
     @Update
-    suspend fun updateNotes(todo: Todo)
+    suspend fun updateTodo(todo: Todo)
 
     @Query("SELECT * FROM 'todo_table'")
-    suspend fun readAllData(): List<Todo>
+    suspend fun readAllDataTodo(): List<Todo>
 
     @Query("DELETE FROM 'todo_table' ")
-    suspend fun deleteDataBase()
+    suspend fun deleteDataBaseTodo()
 }

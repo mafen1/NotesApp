@@ -1,16 +1,24 @@
 package com.example.notesapp.presentation.todo.listTodo
 
 
+import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.notesapp.data.todo.models.Todo
-import com.example.notesapp.databinding.ItemNotesBinding
+import com.example.notesapp.databinding.ItemTodoBinding
 
 class TodoAdapter : ListAdapter<Todo, TodoAdapter.ViewHolder>(ItemComparator()) {
-    val todoList = listOf<Todo>()
-    inner class ViewHolder(private val binding: ItemNotesBinding): RecyclerView.ViewHolder(binding.root)
+
+    var todoList = listOf<Todo>()
+
+    inner class ViewHolder(private val binding: ItemTodoBinding) :
+        RecyclerView.ViewHolder(binding.root) {
+        fun bind(todo: Todo) {
+
+        }
+    }
 
     class ItemComparator : DiffUtil.ItemCallback<Todo>() {
         override fun areItemsTheSame(oldItem: Todo, newItem: Todo): Boolean {
@@ -23,12 +31,10 @@ class TodoAdapter : ListAdapter<Todo, TodoAdapter.ViewHolder>(ItemComparator()) 
 
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        TODO("Not yet implemented")
-    }
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder =
+        ViewHolder(ItemTodoBinding.inflate(LayoutInflater.from(parent.context), parent, false))
 
-    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        TODO("Not yet implemented")
-    }
-  override fun getItemCount(): Int = todoList.size
+    override fun onBindViewHolder(holder: ViewHolder, position: Int) = holder.bind(todoList[position])
+
+    override fun getItemCount(): Int = todoList.size
 }

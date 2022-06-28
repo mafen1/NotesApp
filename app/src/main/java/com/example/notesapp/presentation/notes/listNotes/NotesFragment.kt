@@ -12,6 +12,7 @@ import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.notesapp.R
+import com.example.notesapp.core.snackbar
 import com.example.notesapp.databinding.FragmentListBinding
 import com.example.notesapp.presentation.CreateNotesActivity
 import dagger.hilt.android.AndroidEntryPoint
@@ -36,8 +37,6 @@ class NotesFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-
         initView()
         initObserves()
         initData()
@@ -53,12 +52,12 @@ class NotesFragment : Fragment() {
         binding.floatingActionButton.setOnClickListener {
             findNavController().navigate(R.id.action_listFragment_to_addFragment)
         }
-//        binding.bottomNavigationView.setOnItemSelectedListener{
-//            when(it.itemId){
-//                R.id.todo -> snackbar(binding.root, "selected todo")
-//            }
-//            true
-//        }
+        binding.bottomNavigationView.setOnItemSelectedListener{
+            when(it.itemId){
+                R.id.todo -> findNavController().navigate(R.id.action_listFragment_to_todoFragment)
+            }
+            true
+        }
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {

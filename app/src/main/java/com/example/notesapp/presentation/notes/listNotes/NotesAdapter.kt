@@ -56,9 +56,8 @@ class NotesAdapter :
         )
     }
 
-    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.bind(notesList[position])
-    }
+    override fun onBindViewHolder(holder: ViewHolder, position: Int) = holder.bind(notesList[position])
+
 
     override fun getItemCount(): Int = notesList.size
 

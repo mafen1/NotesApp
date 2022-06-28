@@ -13,24 +13,24 @@ import javax.inject.Inject
 
 @HiltViewModel
 class TodoViewModel @Inject constructor(
-//    private val todoRepositoryImpl: TodoRepositoryImpl
+    private val todoRepositoryImpl: TodoRepositoryImpl
 ) : ViewModel() {
 
-//    private var _readAllData: MutableLiveData<List<Todo>> = MutableLiveData()
-//    var readAllData: LiveData<List<Todo>> = _readAllData
-//
-//    init {
-//        fetchTodo()
-//    }
-//
-//    private fun fetchTodo(){
-//        viewModelScope.launch(Dispatchers.IO) {
-//            todoRepositoryImpl.readAllData()
-//        }
-//    }
-//    private fun deleteDatabase() {
-//        viewModelScope.launch(Dispatchers.IO) {
-//            todoRepositoryImpl.deleteDataBase()
-//        }
-//    }
+    private var _readAllData: MutableLiveData<List<Todo>> = MutableLiveData()
+    var readAllData: LiveData<List<Todo>> = _readAllData
+
+    init {
+        fetchTodo()
+    }
+
+    private fun fetchTodo(){
+        viewModelScope.launch(Dispatchers.IO) {
+            todoRepositoryImpl.readAllData()
+        }
+    }
+    private fun deleteDatabase() {
+        viewModelScope.launch(Dispatchers.IO) {
+            todoRepositoryImpl.deleteDataBase()
+        }
+    }
 }
