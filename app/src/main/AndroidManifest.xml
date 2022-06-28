@@ -18,7 +18,8 @@
             tools:ignore="Instantiatable" />
         <activity
             android:name=".presentation.CreateNotesActivity"
-            android:exported="true">
+            android:exported="true"
+            android:windowSoftInputMode="adjustResize">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

@@ -16,9 +16,9 @@ abstract class UserDatabase : RoomDatabase() {
     abstract fun userDao(): NotesDao
     abstract fun todoDao(): TodoDao
 }
-val MIGRATION_1_2 = object :Migration(1,2){
-    override fun migrate(database: SupportSQLiteDatabase) {
-        database.execSQL("CREATE TABLE IF NOT EXISTS `todo_table` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `title` TEXT NOT NULL, `description` TEXT NOT NULL, `dataTime` TEXT NOT NULL, `color` TEXT NOT NULL)")
-    }
-
-}
+//val MIGRATION_1_2 = object :Migration(1,2){
+//    override fun migrate(database: SupportSQLiteDatabase) {
+//        database.execSQL("CREATE TABLE IF NOT EXISTS `todo_table` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `title` TEXT NOT NULL, `description` TEXT NOT NULL, `dataTime` TEXT NOT NULL, `color` TEXT NOT NULL)")
+//    }
+//
+//}

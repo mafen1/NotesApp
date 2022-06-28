@@ -53,18 +53,20 @@ class AddNotesFragment : Fragment() {
         inflater.inflate(R.menu.menu_save, menu)
         return super.onCreateOptionsMenu(menu, inflater)
     }
+
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
-            R.id.save_btn ->{
-                if (binding.btnSave.text == "Save Text"){
+            R.id.save_btn -> {
+                if (binding.btnSave.text == "Save Text") {
                     insertDataToDataBase()
-                }else{
+                } else {
                     updateDataToDataBase(idCurrentFragment)
                 }
             }
         }
         return super.onOptionsItemSelected(item)
     }
+
     private fun insertDataToDataBase() {
         val title = binding.edTitle.text.toString()
         val subTitle = binding.edSubTitle.text.toString()

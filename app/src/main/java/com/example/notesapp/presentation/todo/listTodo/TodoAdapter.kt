@@ -17,6 +17,7 @@ class TodoAdapter : ListAdapter<Todo, TodoAdapter.ViewHolder>(ItemComparator()) 
         RecyclerView.ViewHolder(binding.root) {
         fun bind(todo: Todo) {
             binding.checkBox.text = todo.title
+            binding.textView.text = todo.dataTime
         }
     }
 

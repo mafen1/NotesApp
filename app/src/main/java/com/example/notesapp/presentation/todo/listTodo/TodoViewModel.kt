@@ -25,7 +25,8 @@ class TodoViewModel @Inject constructor(
 
     private fun fetchTodo(){
         viewModelScope.launch(Dispatchers.IO) {
-            todoRepositoryImpl.readAllData()
+            val tempData = todoRepositoryImpl.readAllData()
+            _readAllData.postValue(tempData)
         }
     }
     private fun deleteDatabase() {
