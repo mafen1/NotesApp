@@ -1,7 +1,6 @@
 package com.example.notesapp.presentation.todo.addTodo
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,7 +10,6 @@ import androidx.navigation.fragment.findNavController
 import com.example.notesapp.R
 import com.example.notesapp.core.snackbar
 import com.example.notesapp.data.todo.models.Todo
-import com.example.notesapp.databinding.FragmentAddBinding
 import com.example.notesapp.databinding.FragmentAddTodoBinding
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import dagger.hilt.android.AndroidEntryPoint
@@ -35,23 +33,26 @@ class AddTodoFragment : BottomSheetDialogFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initView()
-        activity?.window?.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN)
+
 
     }
-    private fun initView(){
-       binding.imageView.setOnClickListener {
-           createTodo()
-       }
+
+    private fun initView() {
+        activity?.window?.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN)
+        binding.imageView.setOnClickListener {
+            createTodo()
+        }
     }
-    private fun createTodo(){
+
+    private fun createTodo() {
         val title = binding.editTextTextPersonName2.text.toString()
         val description = binding.editTextTextPersonName.text.toString()
         val sdf = SimpleDateFormat("dd/M/yyyy hh:mm:ss")
         val currentDate = sdf.format(Date())
 
-        if (title.isEmpty()){
+        if (title.isEmpty()) {
             snackbar(binding.root, "Введите текст")
-        }else{
+        } else {
             val todo = Todo(
                 0, title, description, currentDate, "grey"
             )
