@@ -98,4 +98,5 @@ class NotesFragment : Fragment() {
         val supportActionBar = (activity as CreateNotesActivity?)?.getSupportActionBar()
         supportActionBar?.setBackgroundDrawable(ColorDrawable(Color.parseColor("#10141C")))
     }
+
 }

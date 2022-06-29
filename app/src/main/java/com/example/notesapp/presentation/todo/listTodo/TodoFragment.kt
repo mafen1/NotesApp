@@ -2,11 +2,9 @@ package com.example.notesapp.presentation.todo.listTodo
 
 import android.app.DatePickerDialog
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
-import android.view.WindowManager
+import android.view.*
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.setFragmentResultListener
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
@@ -27,7 +25,7 @@ class TodoFragment : Fragment() {
 
     private val viewModel by viewModels<TodoViewModel>()
     private val todoAdapter = TodoAdapter()
-
+    var color = "#FFFF"
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -49,7 +47,7 @@ class TodoFragment : Fragment() {
         //todo дать норм название view
         binding.recyclerView.adapter = todoAdapter
         binding.recyclerView.layoutManager = LinearLayoutManager(requireContext())
-
+        setHasOptionsMenu(true)
         binding.bottomNavigationView.menu.findItem(R.id.todo).setChecked(true)
 
         binding.floatingActionButton.setOnClickListener {
@@ -72,6 +70,27 @@ class TodoFragment : Fragment() {
         })
     }
 
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        inflater.inflate(R.menu.menu, menu)
+        return super.onCreateOptionsMenu(menu, inflater)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            R.id.menu_delete -> {
+                viewModel.deleteDatabase()
+                todoAdapter.todoList = emptyList()
+                todoAdapter.notifyDataSetChanged()
+            }
+
+        }
+        return super.onOptionsItemSelected(item)
+    }
+    private fun initData(){
+        setFragmentResultListener("key2") { _, bundle ->
+            color = bundle.getString("key2").toString()
+        }
+    }
 
 }
 

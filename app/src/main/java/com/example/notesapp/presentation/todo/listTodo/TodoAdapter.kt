@@ -1,11 +1,13 @@
 package com.example.notesapp.presentation.todo.listTodo
 
 
+import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.example.notesapp.R
 import com.example.notesapp.data.todo.models.Todo
 import com.example.notesapp.databinding.ItemTodoBinding
 
@@ -17,6 +19,7 @@ class TodoAdapter : ListAdapter<Todo, TodoAdapter.ViewHolder>(ItemComparator()) 
         RecyclerView.ViewHolder(binding.root) {
         fun bind(todo: Todo) {
             binding.checkBox.text = todo.title
+            binding.colorView.setBackgroundColor(Color.parseColor(todo.color))
             binding.textView.text = todo.dataTime
         }
     }

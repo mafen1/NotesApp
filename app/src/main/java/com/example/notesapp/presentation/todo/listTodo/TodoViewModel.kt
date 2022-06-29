@@ -29,7 +29,7 @@ class TodoViewModel @Inject constructor(
             _readAllData.postValue(tempData)
         }
     }
-    private fun deleteDatabase() {
+    fun deleteDatabase() {
         viewModelScope.launch(Dispatchers.IO) {
             todoRepositoryImpl.deleteDataBase()
         }

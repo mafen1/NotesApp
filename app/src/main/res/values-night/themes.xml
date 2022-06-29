@@ -7,4 +7,16 @@
         <item name="colorAccent">@color/teal_200</item>
         <!-- Customize your theme here. -->
     </style>
+    <style name="AppBaseTheme" parent="@android:style/Theme.Light.NoTitleBar">
+    </style>
+    <style name="AppTheme" parent="AppBaseTheme">
+        <item name="android:popupMenuStyle">@style/PopupMenu</item>
+
+    </style>
+
+    <style name="PopupMenu" parent="@android:style/Widget.PopupMenu">
+        <item name="android:backgroundTint">@color/colorPrimaryDark</item>
+        <item name="android:textColor">#FFFF</item>
+        <item name="android:textSize">12sp</item>
+    </style>
 </resources>

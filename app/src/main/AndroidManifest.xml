@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="com.example.notesapp">
 
+    <uses-permission android:name="android.permission.SCHEDULE_EXACT_ALARM" />
     <application
         android:name=".app.App"
         android:allowBackup="true"
@@ -12,6 +13,10 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.NotesApp"
         >
+        <receiver
+            android:name=".presentation.todo.addTodo.Notification"
+            android:enabled="true"/>
+
         <activity
             android:name=".presentation.notes.addNotes.AddNotesFragment"
             android:exported="false"
