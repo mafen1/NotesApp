@@ -19,16 +19,25 @@ class TodoViewModel @Inject constructor(
     private var _readAllData: MutableLiveData<List<Todo>> = MutableLiveData()
     var readAllData: LiveData<List<Todo>> = _readAllData
 
+    val _currentSort = MutableLiveData<String>("color")
+
     init {
         fetchTodo()
     }
 
     private fun fetchTodo() {
         viewModelScope.launch(Dispatchers.IO) {
-            val tempData = todoRepositoryImpl.readAllData()
-            _readAllData.postValue(tempData)
+            _readAllData.postValue(todoRepositoryImpl.readAllData())
         }
     }
+
+    fun getItemForAdapter() =
+        when (_currentSort.value) {
+            "color" -> {
+                _readAllData.value!!.sortedBy { it.priority }
+            }
+            else -> emptyList()
+        }
 
     fun deleteDatabase() {
         viewModelScope.launch(Dispatchers.IO) {

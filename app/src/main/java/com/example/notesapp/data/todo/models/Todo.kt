@@ -17,5 +17,6 @@ data class Todo(
     var dataTime: String,
     @ColumnInfo(name="color")
     var color: String,
-    val priority: Int
+    @ColumnInfo(name="priority")
+    var priority: Int
 )

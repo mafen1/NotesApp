@@ -59,7 +59,7 @@ class TodoFragment : Fragment() {
     private fun initObserves() {
         viewModel.readAllData.observe(viewLifecycleOwner, Observer {
             if (it != null) {
-                todoAdapter.todoList = it
+                todoAdapter.todoList = viewModel.getItemForAdapter()
             }
             todoAdapter.notifyDataSetChanged()
         })

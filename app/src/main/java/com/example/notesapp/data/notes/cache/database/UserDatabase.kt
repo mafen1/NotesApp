@@ -17,8 +17,8 @@ abstract class UserDatabase : RoomDatabase() {
     abstract fun todoDao(): TodoDao
 }
 
-val MIGRATION_2_3 = object : Migration(2, 3) {
+val MIGRATION_2_3 = object : Migration(2,3) {
     override fun migrate(database: SupportSQLiteDatabase) {
-        database.execSQL("ALTER TABLE 'todo_table' ADD COLUMN priority INTEGER")
+        database.execSQL("ALTER TABLE 'todo_table' ADD COLUMN `priority` INTEGER  DEFAULT 0 NOT NULL")
     }
 }

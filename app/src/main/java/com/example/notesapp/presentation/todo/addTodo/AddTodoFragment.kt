@@ -24,6 +24,7 @@ class AddTodoFragment : BottomSheetDialogFragment() {
     private val viewModel by viewModels<AddTodoViewModel>()
     var date = Calendar.getInstance()
     var color = "white"
+    var priority = 0
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -44,7 +45,7 @@ class AddTodoFragment : BottomSheetDialogFragment() {
 
 
         binding.imageView.setOnClickListener {
-            createTodo(color)
+            createTodo(color, priority)
             scheduleNotification()
             binding.editTextTextPersonName.visibility = View.GONE
         }
@@ -60,7 +61,7 @@ class AddTodoFragment : BottomSheetDialogFragment() {
     }
 
 
-    private fun createTodo(color: String) {
+    private fun createTodo(color: String, priority: Int) {
         val title = binding.editTextTextPersonName2.text.toString()
         val description = binding.editTextTextPersonName.text.toString()
         val sdf = SimpleDateFormat("dd/M/yyyy hh:mm:ss")
@@ -70,9 +71,10 @@ class AddTodoFragment : BottomSheetDialogFragment() {
             snackbar(binding.root, "Введите текст")
         } else {
             val todo = Todo(
-                0, title, description, currentDate, color, 0
+                0, title, description, currentDate, color, priority
             )
             viewModel.createTodo(todo)
+
             findNavController().navigate(R.id.action_addTodoFragment_to_todoFragment)
         }
     }
@@ -153,14 +155,22 @@ class AddTodoFragment : BottomSheetDialogFragment() {
         }
         popup.setOnMenuItemClickListener {
             when (it.itemId) {
-                0 -> color = "red"
-                1 -> color = "yellow"
-                2 -> color = "blue"
+                0 -> {
+                    color = "red"
+                    priority = 2
+                }
+                1 -> {
+                    color = "yellow"
+                    priority = 1
+                }
+                2 ->{
+                    color = "blue"
+                    priority = 0
+                }
             }
             return@setOnMenuItemClickListener true
         }
         popup.show()
     }
-
 
 }
