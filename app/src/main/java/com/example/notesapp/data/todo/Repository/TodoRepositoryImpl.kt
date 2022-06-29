@@ -7,7 +7,7 @@ import javax.inject.Inject
 
 class TodoRepositoryImpl @Inject constructor(private val todoDao: TodoDao) : RepositoryTodo {
 
-    override suspend fun readAllData(): List<Todo> = todoDao.readAllDataTodo()
+    override suspend fun readAllData(): MutableList<Todo> = todoDao.readAllDataTodo()
 
     override suspend fun addTodo(todo: Todo) = todoDao.addTodo(todo)
 

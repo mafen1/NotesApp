@@ -4,7 +4,7 @@ import com.example.notesapp.data.todo.models.Todo
 
 interface RepositoryTodo {
 
-    suspend fun readAllData(): List<Todo>
+    suspend fun readAllData(): MutableList<Todo>
 
     suspend fun addTodo(todo: Todo)
 

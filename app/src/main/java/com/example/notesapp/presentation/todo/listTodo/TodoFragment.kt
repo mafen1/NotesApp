@@ -59,9 +59,12 @@ class TodoFragment : Fragment() {
     private fun initObserves() {
         viewModel.readAllData.observe(viewLifecycleOwner, Observer {
             if (it != null) {
-                todoAdapter.todoList = viewModel.getItemForAdapter()
+                todoAdapter.todoList = it
             }
             todoAdapter.notifyDataSetChanged()
+        })
+        viewModel.sort.observe(viewLifecycleOwner, Observer {
+            viewModel.getData(it)
         })
     }
 
@@ -73,9 +76,11 @@ class TodoFragment : Fragment() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.menu_delete -> {
-                viewModel.deleteDatabase()
-                todoAdapter.todoList = emptyList()
+//                viewModel.deleteDatabase()
+//                todoAdapter.todoList = emptyList()
+                viewModel.updateSort(SortType.PRIORITY)
                 todoAdapter.notifyDataSetChanged()
+
             }
 
         }

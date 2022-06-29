@@ -15,7 +15,7 @@ interface TodoDao {
     suspend fun updateTodo(todo: Todo)
 
     @Query("SELECT * FROM 'todo_table'")
-    suspend fun readAllDataTodo(): List<Todo>
+    suspend fun readAllDataTodo(): MutableList<Todo>
 
     @Query("DELETE FROM 'todo_table' ")
     suspend fun deleteDataBaseTodo()
