@@ -25,7 +25,7 @@ class TodoFragment : Fragment() {
 
     private val viewModel by viewModels<TodoViewModel>()
     private val todoAdapter = TodoAdapter()
-    var color = "#FFFF"
+//    var color = "#FFFF"
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -86,11 +86,7 @@ class TodoFragment : Fragment() {
         }
         return super.onOptionsItemSelected(item)
     }
-    private fun initData(){
-        setFragmentResultListener("key2") { _, bundle ->
-            color = bundle.getString("key2").toString()
-        }
-    }
+
 
 }
 

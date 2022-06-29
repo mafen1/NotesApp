@@ -25,7 +25,7 @@ class AddTodoFragment : BottomSheetDialogFragment() {
     lateinit var binding: FragmentAddTodoBinding
     private val viewModel by viewModels<AddTodoViewModel>()
     var date = Calendar.getInstance()
-    var color = "#FFFF"
+    var color = "white"
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -72,7 +72,7 @@ class AddTodoFragment : BottomSheetDialogFragment() {
             snackbar(binding.root, "Введите текст")
         } else {
             val todo = Todo(
-                0, title, description, currentDate, color
+                0, title, description, currentDate, color, 0
             )
             viewModel.createTodo(todo)
             findNavController().navigate(R.id.action_addTodoFragment_to_todoFragment)

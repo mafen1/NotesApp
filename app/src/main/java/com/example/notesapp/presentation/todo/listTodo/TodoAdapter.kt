@@ -2,6 +2,7 @@ package com.example.notesapp.presentation.todo.listTodo
 
 
 import android.graphics.Color
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
@@ -13,14 +14,14 @@ import com.example.notesapp.databinding.ItemTodoBinding
 
 class TodoAdapter : ListAdapter<Todo, TodoAdapter.ViewHolder>(ItemComparator()) {
 
-    var todoList = listOf<Todo>()
+    var todoList = emptyList<Todo>()
 
     inner class ViewHolder(private val binding: ItemTodoBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(todo: Todo) {
             binding.checkBox.text = todo.title
-            binding.colorView.setBackgroundColor(Color.parseColor(todo.color))
             binding.textView.text = todo.dataTime
+            binding.colorView.setBackgroundColor(Color.parseColor(todo.color))
         }
     }
 
