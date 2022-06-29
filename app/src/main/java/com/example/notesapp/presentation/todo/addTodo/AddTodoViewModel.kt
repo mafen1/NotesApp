@@ -12,14 +12,15 @@ import javax.inject.Inject
 @HiltViewModel
 class AddTodoViewModel @Inject constructor(
     private val todoRepositoryImpl: TodoRepositoryImpl
-): ViewModel(){
+) : ViewModel() {
 
-    fun createTodo(todo: Todo){
+    fun createTodo(todo: Todo) {
         viewModelScope.launch(Dispatchers.IO) {
             todoRepositoryImpl.addTodo(todo)
         }
     }
-    fun updateTodo(todo: Todo){
+
+    fun updateTodo(todo: Todo) {
         viewModelScope.launch(Dispatchers.IO) {
             todoRepositoryImpl.updateTodo(todo)
         }

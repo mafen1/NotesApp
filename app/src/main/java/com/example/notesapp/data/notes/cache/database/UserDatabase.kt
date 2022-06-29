@@ -10,13 +10,14 @@ import com.example.notesapp.data.todo.models.Todo
 
 /**
  * Abstract для расширения класса (если не напишем попросить реализовать неныжные функции)
-  */
-@Database(entities = [Notes::class, Todo::class], version = 2, exportSchema = false)
+ */
+@Database(entities = [Notes::class, Todo::class], version = 3, exportSchema = false)
 abstract class UserDatabase : RoomDatabase() {
     abstract fun userDao(): NotesDao
     abstract fun todoDao(): TodoDao
 }
-val MIGRATION_1_2 = object :Migration(1,2){
+
+val MIGRATION_2_3 = object : Migration(2, 3) {
     override fun migrate(database: SupportSQLiteDatabase) {
         database.execSQL("ALTER TABLE 'todo_table' ADD COLUMN priority INTEGER")
     }

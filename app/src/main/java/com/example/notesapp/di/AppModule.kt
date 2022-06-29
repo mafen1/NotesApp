@@ -2,7 +2,7 @@ package com.example.notesapp.di
 
 import android.content.Context
 import androidx.room.Room
-import com.example.notesapp.data.notes.cache.database.MIGRATION_1_2
+import com.example.notesapp.data.notes.cache.database.MIGRATION_2_3
 import com.example.notesapp.data.notes.cache.database.UserDatabase
 import dagger.Module
 import dagger.Provides
@@ -17,9 +17,9 @@ class AppModule {
 
     @Provides
     @Singleton
-    fun provideAppDatabase(@ApplicationContext context : Context) : UserDatabase =
+    fun provideAppDatabase(@ApplicationContext context: Context): UserDatabase =
         Room.databaseBuilder(context, UserDatabase::class.java, "app_database")
-            .addMigrations(MIGRATION_1_2)
+            .addMigrations(MIGRATION_2_3)
             .build()
 
     @Provides

@@ -10,7 +10,7 @@ interface NotesDao {
     suspend fun addNotes(notes: Notes)
 
     @Query("SELECT * FROM 'user_table' WHERE id =:id")
-    suspend fun getCurrentNote(id:Int) : Notes
+    suspend fun getCurrentNote(id: Int): Notes
 
     @Update
     suspend fun updateNotes(notes: Notes)

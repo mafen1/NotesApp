@@ -6,8 +6,6 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.*
 import androidx.appcompat.widget.CustomPopupMenu
-import androidx.core.os.bundleOf
-import androidx.fragment.app.setFragmentResult
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.example.notesapp.R
@@ -140,7 +138,7 @@ class AddTodoFragment : BottomSheetDialogFragment() {
 
     }
 
-    private fun popupMenu(){
+    private fun popupMenu() {
         val wrapper: Context = ContextThemeWrapper(requireContext(), R.style.PopupMenu)
         val popup = CustomPopupMenu(wrapper, binding.root)
 
@@ -154,7 +152,7 @@ class AddTodoFragment : BottomSheetDialogFragment() {
             setIcon(R.drawable.ic_baseline_flag_24222)
         }
         popup.setOnMenuItemClickListener {
-            when(it.itemId){
+            when (it.itemId) {
                 0 -> color = "red"
                 1 -> color = "yellow"
                 2 -> color = "blue"

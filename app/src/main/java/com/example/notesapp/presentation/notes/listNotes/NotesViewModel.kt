@@ -14,22 +14,23 @@ import javax.inject.Inject
 @HiltViewModel
 class NotesViewModel @Inject constructor(
     private val repository: NotesRepositoryImpl
-): ViewModel() {
+) : ViewModel() {
 
-    private var _readAllData : MutableLiveData<List<Notes>> = MutableLiveData()
-    val readAllData : LiveData<List<Notes>> = _readAllData
+    private var _readAllData: MutableLiveData<List<Notes>> = MutableLiveData()
+    val readAllData: LiveData<List<Notes>> = _readAllData
 
     init {
         fetchNotes()
     }
 
-    fun deleteDataBase(){
+    fun deleteDataBase() {
         viewModelScope.launch(Dispatchers.IO) {
             repository.deleteDataBase()
         }
     }
-    private fun fetchNotes(){
-        viewModelScope.launch(Dispatchers.IO){
+
+    private fun fetchNotes() {
+        viewModelScope.launch(Dispatchers.IO) {
             val notes = repository.readAllData()
             _readAllData.postValue(notes)
         }

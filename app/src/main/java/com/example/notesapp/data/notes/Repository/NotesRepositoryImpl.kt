@@ -5,7 +5,7 @@ import com.example.notesapp.data.notes.models.Notes
 import com.example.notesapp.domain.notes.repository.RepositoryNotes
 import javax.inject.Inject
 
-class NotesRepositoryImpl @Inject constructor(private val notesDao: NotesDao): RepositoryNotes {
+class NotesRepositoryImpl @Inject constructor(private val notesDao: NotesDao) : RepositoryNotes {
 
     override suspend fun readAllData(): List<Notes> = notesDao.readAllData()
 

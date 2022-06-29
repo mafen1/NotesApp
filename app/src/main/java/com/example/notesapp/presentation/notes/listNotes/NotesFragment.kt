@@ -12,7 +12,6 @@ import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.notesapp.R
-import com.example.notesapp.core.snackbar
 import com.example.notesapp.databinding.FragmentListBinding
 import com.example.notesapp.presentation.CreateNotesActivity
 import dagger.hilt.android.AndroidEntryPoint
@@ -52,8 +51,8 @@ class NotesFragment : Fragment() {
         binding.floatingActionButton.setOnClickListener {
             findNavController().navigate(R.id.action_listFragment_to_addFragment)
         }
-        binding.bottomNavigationView.setOnItemSelectedListener{
-            when(it.itemId){
+        binding.bottomNavigationView.setOnItemSelectedListener {
+            when (it.itemId) {
                 R.id.todo -> findNavController().navigate(R.id.action_listFragment_to_todoFragment)
             }
             true
@@ -94,7 +93,8 @@ class NotesFragment : Fragment() {
             findNavController().navigate(R.id.action_listFragment_to_addFragment)
         }
     }
-    private fun editActionBar(){
+
+    private fun editActionBar() {
         val supportActionBar = (activity as CreateNotesActivity?)?.getSupportActionBar()
         supportActionBar?.setBackgroundDrawable(ColorDrawable(Color.parseColor("#10141C")))
     }

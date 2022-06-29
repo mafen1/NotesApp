@@ -9,7 +9,7 @@ interface TodoDao {
     suspend fun addTodo(todo: Todo)
 
     @Query("SELECT * FROM 'todo_table' WHERE id =:id")
-    suspend fun getCurrentTodo(id:Int) : Todo
+    suspend fun getCurrentTodo(id: Int): Todo
 
     @Update
     suspend fun updateTodo(todo: Todo)

@@ -2,13 +2,11 @@ package com.example.notesapp.presentation.todo.listTodo
 
 
 import android.graphics.Color
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.example.notesapp.R
 import com.example.notesapp.data.todo.models.Todo
 import com.example.notesapp.databinding.ItemTodoBinding
 

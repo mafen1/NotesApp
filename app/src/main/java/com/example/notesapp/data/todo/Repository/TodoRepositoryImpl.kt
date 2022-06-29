@@ -1,12 +1,11 @@
 package com.example.notesapp.data.todo.Repository
 
-import com.example.notesapp.data.notes.models.Notes
 import com.example.notesapp.data.todo.cache.database.TodoDao
 import com.example.notesapp.data.todo.models.Todo
 import com.example.notesapp.domain.todo.repository.RepositoryTodo
 import javax.inject.Inject
 
-class TodoRepositoryImpl @Inject constructor(private val todoDao: TodoDao): RepositoryTodo {
+class TodoRepositoryImpl @Inject constructor(private val todoDao: TodoDao) : RepositoryTodo {
 
     override suspend fun readAllData(): List<Todo> = todoDao.readAllDataTodo()
 

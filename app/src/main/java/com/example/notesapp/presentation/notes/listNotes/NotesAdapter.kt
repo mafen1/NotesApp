@@ -18,7 +18,6 @@ class NotesAdapter :
     var notesList = listOf<Notes>()
 
 
-
     inner class ViewHolder(
         private val binding: ItemNotesBinding
     ) : RecyclerView.ViewHolder(binding.root) {
@@ -56,7 +55,8 @@ class NotesAdapter :
         )
     }
 
-    override fun onBindViewHolder(holder: ViewHolder, position: Int) = holder.bind(notesList[position])
+    override fun onBindViewHolder(holder: ViewHolder, position: Int) =
+        holder.bind(notesList[position])
 
 
     override fun getItemCount(): Int = notesList.size

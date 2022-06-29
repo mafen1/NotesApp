@@ -14,25 +14,26 @@ import javax.inject.Inject
 @HiltViewModel
 class AddNotesViewModel @Inject constructor(
     private val repository: NotesRepositoryImpl
-): ViewModel() {
+) : ViewModel() {
 
     private var _note: MutableLiveData<Notes> = MutableLiveData()
     var note: LiveData<Notes> = _note
 
 
-    fun getCurrentNotes(id:Int){
+    fun getCurrentNotes(id: Int) {
         viewModelScope.launch(Dispatchers.IO) {
             val noteTemp = repository.getCurrentNotes(id)
             _note.postValue(noteTemp)
         }
     }
 
-    fun updateNotes(notes: Notes){
+    fun updateNotes(notes: Notes) {
         viewModelScope.launch(Dispatchers.IO) {
             repository.updateNotes(notes)
         }
     }
-    fun addNotes(notes: Notes){
+
+    fun addNotes(notes: Notes) {
         viewModelScope.launch(Dispatchers.IO) {
             repository.addNotes(notes)
         }
