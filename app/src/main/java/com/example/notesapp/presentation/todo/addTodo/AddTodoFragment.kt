@@ -4,8 +4,11 @@ import android.app.*
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.*
 import androidx.appcompat.widget.CustomPopupMenu
+import androidx.core.content.ContentProviderCompat.requireContext
+import androidx.fragment.app.setFragmentResultListener
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.example.notesapp.R
@@ -20,11 +23,16 @@ import java.util.*
 
 @AndroidEntryPoint
 class AddTodoFragment : BottomSheetDialogFragment() {
-    lateinit var binding: FragmentAddTodoBinding
+
+    private lateinit var binding: FragmentAddTodoBinding
     private val viewModel by viewModels<AddTodoViewModel>()
-    var date = Calendar.getInstance()
-    var color = "white"
-    var priority = 0
+
+    private var date = Calendar.getInstance()
+    private var selectedColorTodo = "white"
+    private var currentPriority = 0
+    private var idCurrentFragmentTodo = 0
+    private var fragmentPosition = ""
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -37,26 +45,37 @@ class AddTodoFragment : BottomSheetDialogFragment() {
         super.onViewCreated(view, savedInstanceState)
         initView()
         createNotificationChannel()
-
+        initData()
+        initObserves()
     }
 
     private fun initView() {
         activity!!.window!!.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_MODE_CHANGED)
 
 
-        binding.imageView.setOnClickListener {
-            createTodo(color, priority)
-            scheduleNotification()
-            binding.editTextTextPersonName.visibility = View.GONE
-        }
+            binding.imageView.setOnClickListener {
+                Log.d("TAG", "add")
+                fragmentPosition = "Add Todo"
+                createTodo(selectedColorTodo, currentPriority)
+                scheduleNotification()
+                binding.editTextTextPersonName.visibility = View.GONE
+            }
+
+//        } else {
+//            binding.imageView.setOnClickListener {
+//                fragmentPosition = "Update Todo"
+//                updateTodo(selectedColorTodo, currentPriority, idCurrentFragmentTodo)
+//                Log.d("TAG", "Upate")
+//            }
+
         binding.imgDescription.setOnClickListener {
             binding.editTextTextPersonName.visibility = View.VISIBLE
         }
         binding.imgCalendar.setOnClickListener {
-            dateAndTime()
+            createDateAndTimePicker()
         }
         binding.imgColor.setOnClickListener {
-            popupMenu()
+            createPopupMenu()
         }
     }
 
@@ -79,15 +98,33 @@ class AddTodoFragment : BottomSheetDialogFragment() {
         }
     }
 
-    private fun dateAndTime() {
+    private fun updateTodo(color: String, priority: Int, id: Int) {
+        val title = binding.editTextTextPersonName2.text.toString()
+        val description = binding.editTextTextPersonName.text.toString()
+        val sdf = SimpleDateFormat("dd/M/yyyy hh:mm:ss")
+        val currentDate = sdf.format(Date())
+
+        if (title.isEmpty()) {
+            snackbar(binding.root, "Введите текст")
+        } else {
+            val todo = Todo(
+                id, title, description, currentDate, color, priority
+            )
+            viewModel.updateTodo(todo)
+
+            findNavController().navigate(R.id.action_addTodoFragment_to_todoFragment)
+        }
+    }
+
+    private fun createDateAndTimePicker() {
         val currentDate = Calendar.getInstance()
         DatePickerDialog(
             context!!,
-            { view, year, monthOfYear, dayOfMonth ->
+            { _, year, monthOfYear, dayOfMonth ->
                 date.set(year, monthOfYear, dayOfMonth)
                 TimePickerDialog(
                     context,
-                    { view, hourOfDay, minute ->
+                    { _, hourOfDay, minute ->
                         date.set(Calendar.HOUR_OF_DAY, hourOfDay)
                         date.set(Calendar.MINUTE, minute)
 
@@ -140,7 +177,7 @@ class AddTodoFragment : BottomSheetDialogFragment() {
 
     }
 
-    private fun popupMenu() {
+    private fun createPopupMenu() {
         val wrapper: Context = ContextThemeWrapper(requireContext(), R.style.PopupMenu)
         val popup = CustomPopupMenu(wrapper, binding.root)
 
@@ -156,16 +193,16 @@ class AddTodoFragment : BottomSheetDialogFragment() {
         popup.setOnMenuItemClickListener {
             when (it.itemId) {
                 0 -> {
-                    color = "red"
-                    priority = 2
+                    selectedColorTodo = "red"
+                    currentPriority = 2
                 }
                 1 -> {
-                    color = "yellow"
-                    priority = 1
+                    selectedColorTodo = "yellow"
+                    currentPriority = 1
                 }
-                2 ->{
-                    color = "blue"
-                    priority = 0
+                2 -> {
+                    selectedColorTodo = "blue"
+                    currentPriority = 0
                 }
             }
             return@setOnMenuItemClickListener true
@@ -173,4 +210,21 @@ class AddTodoFragment : BottomSheetDialogFragment() {
         popup.show()
     }
 
+    private fun initData() {
+        setFragmentResultListener("key2") { _, bundle ->
+            val id = bundle.getInt("id")
+            idCurrentFragmentTodo = id
+            viewModel.getCurrentTodo(id)
+        }
+    }
+
+    private fun initObserves() {
+        viewModel.todo.observe(viewLifecycleOwner) {
+            Log.d("TAG", it.title)
+            binding.editTextTextPersonName2.setText(it.title)
+            binding.editTextTextPersonName.setText(it.description)
+            selectedColorTodo = it.color
+
+        }
+    }
 }

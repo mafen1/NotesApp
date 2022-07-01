@@ -2,9 +2,10 @@ package com.example.notesapp.presentation.todo.listTodo
 
 import android.os.Bundle
 import android.view.*
+import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.setFragmentResult
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.notesapp.R
@@ -19,11 +20,10 @@ class TodoFragment : Fragment() {
     private val viewModel by viewModels<TodoViewModel>()
     private val todoAdapter = TodoAdapter()
 
-    //    var color = "#FFFF"
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding = FragmentTodoBinding.inflate(inflater, container, false)
 
         return binding.root
@@ -33,7 +33,7 @@ class TodoFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         initObserves()
         initView()
-
+        initData()
 
     }
 
@@ -41,8 +41,10 @@ class TodoFragment : Fragment() {
         //todo дать норм название view
         binding.recyclerView.adapter = todoAdapter
         binding.recyclerView.layoutManager = LinearLayoutManager(requireContext())
+
         setHasOptionsMenu(true)
-        binding.bottomNavigationView.menu.findItem(R.id.todo).setChecked(true)
+
+        binding.bottomNavigationView.menu.findItem(R.id.todo).isChecked = true
 
         binding.floatingActionButton.setOnClickListener {
             findNavController().navigate(R.id.action_todoFragment_to_addTodoFragment)
@@ -57,15 +59,15 @@ class TodoFragment : Fragment() {
     }
 
     private fun initObserves() {
-        viewModel.readAllData.observe(viewLifecycleOwner, Observer {
+        viewModel.readAllData.observe(viewLifecycleOwner) {
             if (it != null) {
                 todoAdapter.todoList = it
             }
             todoAdapter.notifyDataSetChanged()
-        })
-        viewModel.sort.observe(viewLifecycleOwner, Observer {
-            viewModel.getData(it)
-        })
+        }
+//        viewModel.sort.observe(viewLifecycleOwner) {
+//            viewModel.getData(it)
+//        }
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
@@ -76,17 +78,20 @@ class TodoFragment : Fragment() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.menu_delete -> {
-//                viewModel.deleteDatabase()
-//                todoAdapter.todoList = emptyList()
-                viewModel.updateSort(SortType.PRIORITY)
-                todoAdapter.notifyDataSetChanged()
-
+                viewModel.deleteDatabase()
+                todoAdapter.todoList = emptyList()
             }
 
         }
         return super.onOptionsItemSelected(item)
     }
 
+    private fun initData() {
+        todoAdapter.callBackPosition = { id ->
+            setFragmentResult("key2", bundleOf("id" to id))
+            findNavController().navigate(R.id.action_todoFragment_to_addTodoFragment)
+        }
+    }
 
 }
 

@@ -1,6 +1,5 @@
 package com.example.notesapp.presentation.todo.listTodo
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -20,24 +19,19 @@ class TodoViewModel @Inject constructor(
     private var _readAllData: MutableLiveData<MutableList<Todo>> = MutableLiveData()
     var readAllData: LiveData<MutableList<Todo>> = _readAllData
 
-    val _sort = MutableLiveData(SortType.PRIORITY)
-    val sort: LiveData<SortType> = _sort
+//    private var _sort = MutableLiveData(SortType.PRIORITY)
+//    val sort: LiveData<SortType> = _sort
 
     init {
-        getData(_sort.value!!)
+        fetchTodo()
     }
 
-    fun getData(value: SortType){
+    private fun fetchTodo() {
         viewModelScope.launch(Dispatchers.IO) {
-            when(value){
-                SortType.PRIORITY -> {
-                    val dataFromDataBase = todoRepositoryImpl.readAllData()
-                    dataFromDataBase.sortedBy { it.priority }
-                    _readAllData.postValue(dataFromDataBase)
-                }
-            }
+            _readAllData.postValue(todoRepositoryImpl.readAllData())
         }
     }
+
 
     fun deleteDatabase() {
         viewModelScope.launch(Dispatchers.IO) {
@@ -45,10 +39,19 @@ class TodoViewModel @Inject constructor(
         }
     }
 
-    fun updateSort(sortType: SortType) {
-        _sort.value = sortType
-    }
+//    fun updateSort(sortType: SortType) {
+//        _sort.value = sortType
+//    }
+    //    fun getData(value: SortType) {
+//        viewModelScope.launch(Dispatchers.IO) {
+//            when (value) {
+//                SortType.PRIORITY -> {
+//                    val dataFromDataBase = todoRepositoryImpl.readAllData()
+//                    dataFromDataBase.sortedBy { it.priority }
+//                    _readAllData.postValue(dataFromDataBase)
+//                }
+//            }
+//        }
+//    }
 }
-enum class SortType{
-    PRIORITY
-}
+

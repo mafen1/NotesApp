@@ -2,7 +2,6 @@ package com.example.notesapp.presentation.todo.listTodo
 
 
 import android.graphics.Color
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
@@ -13,7 +12,9 @@ import com.example.notesapp.databinding.ItemTodoBinding
 
 class TodoAdapter : ListAdapter<Todo, TodoAdapter.ViewHolder>(ItemComparator()) {
 
-    var todoList = listOf<Todo>().sortedBy { it.priority }
+    var todoList = listOf<Todo>()
+
+    var callBackPosition: ((position: Int) -> Unit)? = null
 
     inner class ViewHolder(private val binding: ItemTodoBinding) :
         RecyclerView.ViewHolder(binding.root) {
@@ -23,7 +24,9 @@ class TodoAdapter : ListAdapter<Todo, TodoAdapter.ViewHolder>(ItemComparator()) 
             binding.textView.text = todo.dataTime
             binding.colorView.setBackgroundColor(Color.parseColor(todo.color))
 
-
+            binding.rowLayout.setOnClickListener {
+                callBackPosition?.invoke(todo.id)
+            }
         }
     }
 
@@ -41,7 +44,8 @@ class TodoAdapter : ListAdapter<Todo, TodoAdapter.ViewHolder>(ItemComparator()) 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder =
         ViewHolder(ItemTodoBinding.inflate(LayoutInflater.from(parent.context), parent, false))
 
-    override fun onBindViewHolder(holder: ViewHolder, position: Int) = holder.bind(todoList[position])
+    override fun onBindViewHolder(holder: ViewHolder, position: Int) =
+        holder.bind(todoList[position])
 
     override fun getItemCount(): Int = todoList.size
 }

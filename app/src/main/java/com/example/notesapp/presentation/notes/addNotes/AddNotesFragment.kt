@@ -37,7 +37,7 @@ class AddNotesFragment : Fragment() {
     }
 
     private fun initView() {
-        val supportActionBar = (activity as CreateNotesActivity?)?.getSupportActionBar()
+        val supportActionBar = (activity as CreateNotesActivity?)?.supportActionBar
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.setHomeButtonEnabled(true)
 
@@ -103,7 +103,7 @@ class AddNotesFragment : Fragment() {
 
     private fun initData() {
         setFragmentResultListener("key") { _, bundle ->
-            var id = bundle.getInt("id")
+            val id = bundle.getInt("id")
             idCurrentFragment = id
             viewModel.getCurrentNotes(id)
         }

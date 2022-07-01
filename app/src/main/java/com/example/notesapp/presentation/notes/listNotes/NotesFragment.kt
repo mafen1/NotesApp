@@ -8,7 +8,6 @@ import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.setFragmentResult
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.notesapp.R
@@ -78,12 +77,12 @@ class NotesFragment : Fragment() {
 
 
     private fun initObserves() {
-        viewModel.readAllData.observe(viewLifecycleOwner, Observer {
+        viewModel.readAllData.observe(viewLifecycleOwner) {
             if (it != null) {
                 listAdapter.notesList = it
             }
             listAdapter.notifyDataSetChanged()
-        })
+        }
     }
 
     private fun initData() {
@@ -95,7 +94,7 @@ class NotesFragment : Fragment() {
     }
 
     private fun editActionBar() {
-        val supportActionBar = (activity as CreateNotesActivity?)?.getSupportActionBar()
+        val supportActionBar = (activity as CreateNotesActivity?)?.supportActionBar
         supportActionBar?.setBackgroundDrawable(ColorDrawable(Color.parseColor("#10141C")))
     }
 
