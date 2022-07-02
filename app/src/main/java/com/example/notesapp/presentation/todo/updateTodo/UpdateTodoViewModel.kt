@@ -1,4 +1,4 @@
-package com.example.notesapp.presentation.todo.addTodo
+package com.example.notesapp.presentation.todo.updateTodo
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -12,17 +12,23 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class AddTodoViewModel @Inject constructor(
-    private val todoRepositoryImpl: TodoRepositoryImpl
+class UpdateTodoViewModel @Inject constructor(
+   private val todoRepositoryImpl: TodoRepositoryImpl
 ) : ViewModel() {
 
     private var _todo: MutableLiveData<Todo> = MutableLiveData()
     var todo: LiveData<Todo> = _todo
 
-    fun createTodo(todo: Todo) {
+    fun updateTodo(todo: Todo) {
         viewModelScope.launch(Dispatchers.IO) {
-            todoRepositoryImpl.addTodo(todo)
+            todoRepositoryImpl.updateTodo(todo)
         }
     }
 
+    fun getCurrentTodo(id: Int) {
+        viewModelScope.launch(Dispatchers.IO) {
+            val tempTodo = todoRepositoryImpl.getCurrentTodo(id)
+            _todo.postValue(tempTodo)
+        }
+    }
 }

@@ -1,6 +1,7 @@
 package com.example.notesapp.presentation.todo.listTodo
 
 import android.os.Bundle
+import android.util.Log
 import android.view.*
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
@@ -9,6 +10,7 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.notesapp.R
+import com.example.notesapp.core.ConstVariables
 import com.example.notesapp.databinding.FragmentTodoBinding
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -87,9 +89,17 @@ class TodoFragment : Fragment() {
     }
 
     private fun initData() {
-        todoAdapter.callBackPosition = { id ->
-            setFragmentResult("key2", bundleOf("id" to id))
-            findNavController().navigate(R.id.action_todoFragment_to_addTodoFragment)
+        todoAdapter.callBackPosition = { id, title, description, color, priority ->
+            // todo вынести в переменную ConstVariables.keyForUpdateTodo
+            setFragmentResult(ConstVariables.keyForUpdateTodo, bundleOf(
+                "id" to id,
+                "title1" to title,
+                "description" to description,
+                "color" to color,
+                "priority" to priority
+            ))
+
+            findNavController().navigate(R.id.action_todoFragment_to_updateFragmentTodo)
         }
     }
 

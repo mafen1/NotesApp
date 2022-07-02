@@ -38,6 +38,9 @@
         <action
             android:id="@+id/action_todoFragment_to_addTodoFragment"
             app:destination="@id/addTodoFragment" />
+        <action
+            android:id="@+id/action_todoFragment_to_updateFragmentTodo"
+            app:destination="@id/updateFragmentTodo" />
     </fragment>
     <dialog
         android:id="@+id/addTodoFragment"
@@ -48,5 +51,14 @@
             android:id="@+id/action_addTodoFragment_to_todoFragment"
             app:destination="@id/todoFragment" />
     </dialog>
+    <fragment
+        android:id="@+id/updateFragmentTodo"
+        android:name="com.example.notesapp.presentation.todo.updateTodo.UpdateFragmentTodo"
+        android:label="fragment_update_todo"
+        tools:layout="@layout/fragment_update_todo" >
+        <action
+            android:id="@+id/action_updateFragmentTodo_to_todoFragment"
+            app:destination="@id/todoFragment" />
+    </fragment>
 
 </navigation>
