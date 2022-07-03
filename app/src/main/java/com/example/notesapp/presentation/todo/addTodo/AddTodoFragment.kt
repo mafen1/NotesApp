@@ -104,7 +104,7 @@ class AddTodoFragment : BottomSheetDialogFragment() {
                     },
                     currentDate.get(Calendar.HOUR_OF_DAY),
                     currentDate.get(Calendar.MINUTE),
-                    false
+                    true
                 ).show()
 
             },
@@ -112,7 +112,6 @@ class AddTodoFragment : BottomSheetDialogFragment() {
             currentDate.get(Calendar.MONTH),
             currentDate.get(Calendar.DATE)
         ).show()
-
     }
 
     private fun createNotificationChannel() {

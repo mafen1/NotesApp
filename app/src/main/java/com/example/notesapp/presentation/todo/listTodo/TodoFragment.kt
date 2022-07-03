@@ -78,7 +78,7 @@ class TodoFragment : Fragment() {
         when (item.itemId) {
             R.id.menu_delete -> {
                 viewModel.deleteDatabase()
-//                todoAdapter.todoList = emptyList()
+                todoAdapter.todoList = emptyList()
                 todoAdapter.notifyDataSetChanged()
             }
 

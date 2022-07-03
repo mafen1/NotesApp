@@ -29,9 +29,7 @@ class TodoAdapter : ListAdapter<Todo, TodoAdapter.ViewHolder>(ItemComparator()) 
         done: Boolean
     ) -> Unit)? = null
 
-    inner class ViewHolder(private val binding: ItemTodoBinding) :
-
-        RecyclerView.ViewHolder(binding.root) {
+    inner class ViewHolder(private val binding: ItemTodoBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(todo: Todo, context: Context) {
             binding.checkBox.text = todo.title
             binding.textView.text = todo.dataTime
@@ -81,7 +79,32 @@ class TodoAdapter : ListAdapter<Todo, TodoAdapter.ViewHolder>(ItemComparator()) 
                     binding.textView.setTextColor((context.resources.getColor(R.color.Grey, null)))
                     notifyItemMoved(absoluteAdapterPosition,todoList.size - 1)
                 }else{
+
+                    when (todo.color) {
+                        "red" -> {
+                            binding.checkBox.buttonTintList = ColorStateList.valueOf(
+                                context.resources.getColor(R.color.red, null)
+                            )
+                        }
+                        "yellow" -> {
+                            binding.checkBox.buttonTintList = ColorStateList.valueOf(
+                                context.resources.getColor(R.color.yellow, null)
+                            )
+                        }
+                        "blue" -> {
+                            binding.checkBox.buttonTintList = ColorStateList.valueOf(
+                                context.resources.getColor(R.color.blue, null)
+                            )
+                        }
+                        "grey" -> {
+                            binding.checkBox.buttonTintList = ColorStateList.valueOf(
+                                context.resources.getColor(R.color.Grey, null)
+                            )
+                        }
+                    }
+                    binding.colorView.setBackgroundColor(Color.parseColor(todo.color))
                     binding.checkBox.setTextColor((context.resources.getColor(R.color.white, null)))
+                    binding.textView.setTextColor((context.resources.getColor(R.color.white, null)))
                     notifyItemMoved(absoluteAdapterPosition,0);
                 }
             }
@@ -108,28 +131,4 @@ class TodoAdapter : ListAdapter<Todo, TodoAdapter.ViewHolder>(ItemComparator()) 
 
     override fun getItemCount(): Int = todoList.size
 
-    private fun checkPriority(){
-        when (todo.color) {
-            "red" -> {
-                binding.checkBox.buttonTintList = ColorStateList.valueOf(
-                    context.resources.getColor(R.color.red, null)
-                )
-            }
-            "yellow" -> {
-                binding.checkBox.buttonTintList = ColorStateList.valueOf(
-                    context.resources.getColor(R.color.yellow, null)
-                )
-            }
-            "blue" -> {
-                binding.checkBox.buttonTintList = ColorStateList.valueOf(
-                    context.resources.getColor(R.color.blue, null)
-                )
-            }
-            "grey" -> {
-                binding.checkBox.buttonTintList = ColorStateList.valueOf(
-                    context.resources.getColor(R.color.Grey, null)
-                )
-            }
-        }
-    }
 }
