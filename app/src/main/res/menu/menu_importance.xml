@@ -3,18 +3,23 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <!--    todo заменить id-->
     <item
-        android:id="@+id/id1"
+        android:id="@+id/highPriority"
         android:icon="@drawable/ic_baseline_flag_24"
         android:title="Высокий"
         app:showAsAction="never" />
     <item
-        android:id="@+id/id2"
+        android:id="@+id/mediumPriority"
         android:icon="@drawable/ic_baseline_flag_2422"
         android:title="Средний"
         app:showAsAction="never" />
     <item
-        android:id="@+id/id3"
+        android:id="@+id/lowPriority"
         android:icon="@drawable/ic_baseline_flag_24222"
         android:title="Низкий"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/noPriority"
+        android:icon="@drawable/ic_baseline_flag_grey"
+        android:title="Нет"
         app:showAsAction="never" />
 </menu>

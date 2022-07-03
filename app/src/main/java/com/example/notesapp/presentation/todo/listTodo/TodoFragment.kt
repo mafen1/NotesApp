@@ -1,7 +1,6 @@
 package com.example.notesapp.presentation.todo.listTodo
 
 import android.os.Bundle
-import android.util.Log
 import android.view.*
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
@@ -40,19 +39,20 @@ class TodoFragment : Fragment() {
     }
 
     private fun initView() {
-        //todo дать норм название view
-        binding.recyclerView.adapter = todoAdapter
-        binding.recyclerView.layoutManager = LinearLayoutManager(requireContext())
+        binding.rvTodo.adapter = todoAdapter
+        binding.rvTodo.layoutManager = LinearLayoutManager(requireContext())
+
+
 
         setHasOptionsMenu(true)
 
-        binding.bottomNavigationView.menu.findItem(R.id.todo).isChecked = true
+        binding.bnvTodo.menu.findItem(R.id.todo).isChecked = true
 
-        binding.floatingActionButton.setOnClickListener {
+        binding.btnCreateTodo.setOnClickListener {
             findNavController().navigate(R.id.action_todoFragment_to_addTodoFragment)
 
         }
-        binding.bottomNavigationView.setOnItemSelectedListener {
+        binding.bnvTodo.setOnItemSelectedListener {
             when (it.itemId) {
                 R.id.notes -> findNavController().navigate(R.id.action_todoFragment_to_listFragment)
             }
@@ -67,9 +67,6 @@ class TodoFragment : Fragment() {
             }
             todoAdapter.notifyDataSetChanged()
         }
-//        viewModel.sort.observe(viewLifecycleOwner) {
-//            viewModel.getData(it)
-//        }
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
@@ -82,6 +79,7 @@ class TodoFragment : Fragment() {
             R.id.menu_delete -> {
                 viewModel.deleteDatabase()
                 todoAdapter.todoList = emptyList()
+                todoAdapter.notifyDataSetChanged()
             }
 
         }
@@ -89,16 +87,16 @@ class TodoFragment : Fragment() {
     }
 
     private fun initData() {
-        todoAdapter.callBackPosition = { id, title, description, color, priority ->
-            // todo вынести в переменную ConstVariables.keyForUpdateTodo
+        todoAdapter.callBackTodo = { id, title, description, color, dataTime, priority ->
+
             setFragmentResult(ConstVariables.keyForUpdateTodo, bundleOf(
                 "id" to id,
                 "title1" to title,
                 "description" to description,
                 "color" to color,
+                "data" to dataTime,
                 "priority" to priority
             ))
-
             findNavController().navigate(R.id.action_todoFragment_to_updateFragmentTodo)
         }
     }

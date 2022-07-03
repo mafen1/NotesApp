@@ -9,30 +9,34 @@
 
 
     <EditText
-        android:id="@+id/editTextTextPersonName3"
+        android:id="@+id/edTitleTodo"
         android:layout_width="0dp"
         android:layout_height="35dp"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="80dp"
         android:layout_marginEnd="16dp"
         android:background="@null"
         android:ems="10"
         android:inputType="textPersonName"
         android:text=""
-        android:textStyle="bold"
-        android:textSize="20sp"
+        tools:text="dgjhdsgj"
         android:textColor="@color/white"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/edDescriptionTodo"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        android:autofillHints="" />
 
     <EditText
-        android:id="@+id/editTextTextPersonName4"
+        android:id="@+id/edDescriptionTodo"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginStart="10dp"
-        android:layout_marginEnd="10dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
         android:layout_marginBottom="32dp"
+        android:background="@null"
         android:ems="10"
         android:gravity="top"
         android:hint="Введите описание"
@@ -42,5 +46,43 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editTextTextPersonName3" />
+        app:layout_constraintTop_toBottomOf="@+id/edTitleTodo" />
+
+    <CheckBox
+        android:id="@+id/checkBoxTodo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="17dp"
+        android:layout_marginTop="37dp"
+        android:layout_marginBottom="11dp"
+        android:buttonTint="@color/white"
+        android:text=""
+        app:layout_constraintBottom_toTopOf="@+id/edTitleTodo"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="36dp"
+        android:text=""
+        android:textSize="16sp"
+        android:textColor="@color/white"
+        app:layout_constraintStart_toEndOf="@+id/checkBoxTodo"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="data" />
+
+    <ImageView
+        android:id="@+id/imFlagPriority"
+        android:layout_width="35dp"
+        android:layout_height="35dp"
+        android:layout_marginTop="34dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="11dp"
+        android:src="@drawable/ic_baseline_flag_white"
+        app:layout_constraintBottom_toTopOf="@+id/edTitleTodo"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

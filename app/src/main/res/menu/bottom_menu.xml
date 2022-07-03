@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
-    <!--TODO добавить тайтлы в string-->
+
     <item
         android:id="@+id/notes"
         android:icon="@drawable/ic_baseline_sticky_note_2_24"
-        android:title="Заметки" />
+        android:title="@string/Notes" />
     <item
         android:id="@+id/todo"
         android:icon="@drawable/todo"
-        android:title="TODO задачи" />
+        android:title="@string/todo" />
 </menu>

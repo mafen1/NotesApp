@@ -28,8 +28,8 @@ class NotesFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        // Inflate the layout for this fragment
         binding = FragmentListBinding.inflate(inflater, container, false)
+
         return binding.root
     }
 
@@ -41,16 +41,16 @@ class NotesFragment : Fragment() {
     }
 
     private fun initView() {
-        binding.recyclerView.adapter = listAdapter
-        binding.recyclerView.layoutManager = GridLayoutManager(activity, 3)
+        binding.rvNotes.adapter = listAdapter
+        binding.rvNotes.layoutManager = GridLayoutManager(activity, 3)
 
         setHasOptionsMenu(true)
 
         editActionBar()
-        binding.floatingActionButton.setOnClickListener {
+        binding.btnCreateNotes.setOnClickListener {
             findNavController().navigate(R.id.action_listFragment_to_addFragment)
         }
-        binding.bottomNavigationView.setOnItemSelectedListener {
+        binding.bnvNotes.setOnItemSelectedListener {
             when (it.itemId) {
                 R.id.todo -> findNavController().navigate(R.id.action_listFragment_to_todoFragment)
             }

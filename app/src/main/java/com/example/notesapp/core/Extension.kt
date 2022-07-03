@@ -5,5 +5,5 @@ import com.example.notesapp.presentation.todo.listTodo.TodoAdapter
 import com.google.android.material.snackbar.Snackbar
 
 fun snackbar(view: View, message: String) {
-    Snackbar.make(view, message, Snackbar.LENGTH_LONG).show()
+    Snackbar.make(view, message, Snackbar.LENGTH_SHORT).show()
 }

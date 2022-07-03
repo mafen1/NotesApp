@@ -2,27 +2,24 @@ package com.example.notesapp.presentation.todo.listTodo
 
 
 import android.graphics.Color
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.core.os.bundleOf
-import androidx.fragment.app.setFragmentResult
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.example.notesapp.core.ConstVariables
 import com.example.notesapp.data.todo.models.Todo
 import com.example.notesapp.databinding.ItemTodoBinding
 
 class TodoAdapter : ListAdapter<Todo, TodoAdapter.ViewHolder>(ItemComparator()) {
 
     var todoList = listOf<Todo>()
-    // todo переименовать
-    var callBackPosition: ((position: Int,
-                            title: String,
-                            description: String,
-                            color: String,
-                            priority: Int) -> Unit)? = null
+
+    var callBackTodo: ((position: Int,
+                        title: String,
+                        description: String,
+                        color: String,
+                        dataTime: String,
+                        priority: Int) -> Unit)? = null
 
     inner class ViewHolder(private val binding: ItemTodoBinding) :
         RecyclerView.ViewHolder(binding.root) {
@@ -33,7 +30,7 @@ class TodoAdapter : ListAdapter<Todo, TodoAdapter.ViewHolder>(ItemComparator()) 
             binding.colorView.setBackgroundColor(Color.parseColor(todo.color))
 
             binding.rowLayout.setOnClickListener {
-                callBackPosition?.invoke(todo.id, todo.title, todo.description, todo.color, todo.priority )
+                callBackTodo?.invoke(todo.id, todo.title, todo.description, todo.color, todo.dataTime , todo.priority )
 
             }
         }
