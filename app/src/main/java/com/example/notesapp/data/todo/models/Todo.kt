@@ -18,5 +18,7 @@ data class Todo(
     @ColumnInfo(name="color")
     var color: String,
     @ColumnInfo(name="priority")
-    var priority: Int
+    var priority: Int,
+    @ColumnInfo(name = "done")
+    var done: Boolean = false
 )

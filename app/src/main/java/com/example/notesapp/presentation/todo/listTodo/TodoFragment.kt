@@ -20,7 +20,7 @@ class TodoFragment : Fragment() {
 
     private val viewModel by viewModels<TodoViewModel>()
     private val todoAdapter = TodoAdapter()
-    private var colorA = ""
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -78,7 +78,7 @@ class TodoFragment : Fragment() {
         when (item.itemId) {
             R.id.menu_delete -> {
                 viewModel.deleteDatabase()
-                todoAdapter.todoList = emptyList()
+//                todoAdapter.todoList = emptyList()
                 todoAdapter.notifyDataSetChanged()
             }
 
@@ -87,8 +87,8 @@ class TodoFragment : Fragment() {
     }
 
     private fun initData() {
-        todoAdapter.callBackTodo = { id, title, description, color, dataTime, priority ->
-            colorA = color
+        todoAdapter.callBackTodo = { id, title, description, color, dataTime, priority, _ ->
+
             setFragmentResult(ConstVariables.keyForUpdateTodo, bundleOf(
                 "id" to id,
                 "title1" to title,
