@@ -20,6 +20,7 @@ class TodoFragment : Fragment() {
 
     private val viewModel by viewModels<TodoViewModel>()
     private val todoAdapter = TodoAdapter()
+    private var colorA = ""
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -41,7 +42,6 @@ class TodoFragment : Fragment() {
     private fun initView() {
         binding.rvTodo.adapter = todoAdapter
         binding.rvTodo.layoutManager = LinearLayoutManager(requireContext())
-
 
 
         setHasOptionsMenu(true)
@@ -88,7 +88,7 @@ class TodoFragment : Fragment() {
 
     private fun initData() {
         todoAdapter.callBackTodo = { id, title, description, color, dataTime, priority ->
-
+            colorA = color
             setFragmentResult(ConstVariables.keyForUpdateTodo, bundleOf(
                 "id" to id,
                 "title1" to title,

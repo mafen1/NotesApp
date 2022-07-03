@@ -27,6 +27,7 @@
     <color name="Teal">#008080</color>
     <color name="Blue">#0000FF</color>
     <color name="Navy">#000080</color>
+    <color name="Grey">#ACACAC</color>
 
     <!-- Красные тона -->
     <color name="light_coral">#F08080</color>

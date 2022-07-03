@@ -1,6 +1,7 @@
 package com.example.notesapp.presentation.todo.updateTodo
 
 import android.content.Context
+import android.content.res.ColorStateList
 import android.os.Bundle
 import android.view.*
 import androidx.appcompat.widget.CustomPopupMenu
@@ -50,6 +51,7 @@ class UpdateFragmentTodo : Fragment() {
         binding.imFlagPriority.setOnClickListener {
             createPopupMenu()
         }
+
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
@@ -60,7 +62,7 @@ class UpdateFragmentTodo : Fragment() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.save_btn -> {
-                updateDataToDataBase(idCurrentFragmentTodo)
+                updateDataToDataBase(viewModel.idCurrentFragmentTodo.value!!)
             }
         }
 
@@ -76,7 +78,7 @@ class UpdateFragmentTodo : Fragment() {
             snackbar(binding.root, "fill in all the fields")
         } else {
             val todo = Todo(
-                id, title, description, dataTime, selectedColorTodo, currentPriority
+                id, title, description, dataTime, viewModel.selectedColorTodo.value!!, viewModel.currentPriority.value!!
             )
             viewModel.updateTodo(todo)
             snackbar(binding.root, "Successful")
@@ -84,54 +86,86 @@ class UpdateFragmentTodo : Fragment() {
             findNavController().navigate(R.id.action_updateFragmentTodo_to_todoFragment)
         }
     }
-
     private fun initData() {
         setFragmentResultListener(ConstVariables.keyForUpdateTodo) { _, bundle ->
             val id = bundle.getInt("id")
             val title = bundle.getString("title1").toString()
             val description = bundle.getString("description").toString()
+            val color = bundle.getString("color").toString()
             val data = bundle.getString("data")
 
-            idCurrentFragmentTodo = id
+            viewModel.changeIdCurrentFragment(id)
+            viewModel.changeSelectedColor(color)
             viewModel.getCurrentTodo(id)
+
             binding.textView2.text = data
             binding.edTitleTodo.setText(title)
             binding.edDescriptionTodo.setText(description)
+
+            when(color){
+                "red" -> {
+                    binding.imFlagPriority.setImageResource(R.drawable.ic_baseline_flag_24)
+                    binding.checkBoxTodo.buttonTintList = ColorStateList.valueOf(resources.getColor(R.color.red, null))
+                }
+                "yellow" -> {
+                    binding.imFlagPriority.setImageResource(R.drawable.ic_baseline_flag_2422)
+                    binding.checkBoxTodo.buttonTintList = ColorStateList.valueOf(resources.getColor(R.color.yellow, null))
+                }
+                "blue" -> {
+                    binding.imFlagPriority.setImageResource(R.drawable.ic_baseline_flag_24222)
+                    binding.checkBoxTodo.buttonTintList = ColorStateList.valueOf(resources.getColor(R.color.blue, null))
+                }
+                "grey" -> {
+                    binding.imFlagPriority.setImageResource(R.drawable.ic_baseline_flag_grey)
+                    binding.checkBoxTodo.buttonTintList = ColorStateList.valueOf(resources.getColor(R.color.Grey, null))
+
+                }
+            }
         }
     }
     private fun createPopupMenu() {
         val wrapper: Context = ContextThemeWrapper(requireContext(), R.style.PopupMenu)
         val popup = CustomPopupMenu(wrapper, binding.imFlagPriority)
-
-        popup.menu.add(Menu.NONE, 0, Menu.NONE, "Высокий").apply {
-            setIcon(R.drawable.ic_baseline_flag_24)
-        }
-        popup.menu.add(Menu.NONE, 1, Menu.NONE, "Средний").apply {
-            setIcon(R.drawable.ic_baseline_flag_2422)
-        }
-        popup.menu.add(Menu.NONE, 2, Menu.NONE, "Низкий").apply {
-            setIcon(R.drawable.ic_baseline_flag_24222)
-        }
-        popup.menu.add(Menu.NONE, 3, Menu.NONE, "Нет").apply {
-            setIcon(R.drawable.ic_baseline_flag_grey)
+        popup.menu.apply {
+            add(Menu.NONE, 0, Menu.NONE, "Высокий").apply {
+                setIcon(R.drawable.ic_baseline_flag_24)
+            }
+            add(Menu.NONE, 1, Menu.NONE, "Средний").apply {
+                setIcon(R.drawable.ic_baseline_flag_2422)
+            }
+            add(Menu.NONE, 2, Menu.NONE, "Низкий").apply {
+                setIcon(R.drawable.ic_baseline_flag_24222)
+            }
+            add(Menu.NONE, 3, Menu.NONE, "Нет").apply {
+                setIcon(R.drawable.ic_baseline_flag_grey)
+            }
         }
         popup.setOnMenuItemClickListener {
             when (it.itemId) {
                 0 -> {
-                    selectedColorTodo = "red"
-                    currentPriority = 3
+                    viewModel.changeSelectedColor("red")
+                    viewModel.changeCurrentPriority(3)
+
+                    binding.checkBoxTodo.buttonTintList = ColorStateList.valueOf(resources.getColor(R.color.red, null))
+                    binding.imFlagPriority.setImageResource(R.drawable.ic_baseline_flag_24)
                 }
                 1 -> {
-                    selectedColorTodo = "yellow"
-                    currentPriority = 2
+                    viewModel.changeSelectedColor("yellow")
+                    viewModel.changeCurrentPriority(2)
+                    binding.checkBoxTodo.buttonTintList = ColorStateList.valueOf(resources.getColor(R.color.yellow, null))
+                    binding.imFlagPriority.setImageResource(R.drawable.ic_baseline_flag_2422)
                 }
                 2 -> {
-                    selectedColorTodo = "blue"
-                    currentPriority = 1
+                    viewModel.changeSelectedColor("blue")
+                    viewModel.changeCurrentPriority(1)
+                    binding.imFlagPriority.setImageResource(R.drawable.ic_baseline_flag_24222)
+                    binding.checkBoxTodo.buttonTintList = ColorStateList.valueOf(resources.getColor(R.color.blue, null))
                 }
                 3 -> {
-                    selectedColorTodo = "grey"
-                    currentPriority = 0
+                    viewModel.changeSelectedColor("grey")
+                    viewModel.changeCurrentPriority(0)
+                    binding.checkBoxTodo.buttonTintList = ColorStateList.valueOf(resources.getColor(R.color.Grey, null))
+                    binding.imFlagPriority.setImageResource(R.drawable.ic_baseline_flag_grey)
                 }
             }
             return@setOnMenuItemClickListener true

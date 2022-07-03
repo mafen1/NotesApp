@@ -4,11 +4,8 @@ import android.app.*
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.*
 import androidx.appcompat.widget.CustomPopupMenu
-import androidx.core.os.bundleOf
-import androidx.fragment.app.setFragmentResult
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.example.notesapp.R
@@ -28,8 +25,7 @@ class AddTodoFragment : BottomSheetDialogFragment() {
     private val viewModel by viewModels<AddTodoViewModel>()
 
     private var date = Calendar.getInstance()
-    private var selectedColorTodo = "grey"
-    private var currentPriority = 0
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -51,7 +47,7 @@ class AddTodoFragment : BottomSheetDialogFragment() {
 
 
         binding.imageView.setOnClickListener {
-            createTodo(selectedColorTodo, currentPriority)
+            createTodo()
             scheduleNotification()
             binding.edDescrtiptionAddTodo.visibility = View.GONE
         }
@@ -71,11 +67,11 @@ class AddTodoFragment : BottomSheetDialogFragment() {
         viewModel.todo.observe(viewLifecycleOwner) {
             binding.edTitle.setText(it.title)
             binding.edDescrtiptionAddTodo.setText(it.description)
-            selectedColorTodo = it.color
+            viewModel.changeSelectedColor(it.color)
         }
     }
 
-    private fun createTodo(color: String, priority: Int) {
+    private fun createTodo() {
         val title = binding.edTitle.text.toString()
         val description = binding.edDescrtiptionAddTodo.text.toString()
         val sdf = SimpleDateFormat("dd/M/yyyy hh:mm:ss")
@@ -85,7 +81,7 @@ class AddTodoFragment : BottomSheetDialogFragment() {
             snackbar(binding.root, "Введите текст")
         } else {
             val todo = Todo(
-                0, title, description, currentDate, color, priority
+                0, title, description, currentDate, viewModel.selectedColorTodo.value!!, viewModel.currentPriority.value!!
             )
             viewModel.createTodo(todo)
 
@@ -155,39 +151,39 @@ class AddTodoFragment : BottomSheetDialogFragment() {
     }
 
     private fun createPopupMenu() {
-
         val wrapper: Context = ContextThemeWrapper(requireContext(), R.style.PopupMenu)
         val popup = CustomPopupMenu(wrapper, binding.root)
-
-        popup.menu.add(Menu.NONE, 0, Menu.NONE, "Высокий").apply {
-            setIcon(R.drawable.ic_baseline_flag_24)
-        }
-        popup.menu.add(Menu.NONE, 1, Menu.NONE, "Средний").apply {
-            setIcon(R.drawable.ic_baseline_flag_2422)
-        }
-        popup.menu.add(Menu.NONE, 2, Menu.NONE, "Низкий").apply {
-            setIcon(R.drawable.ic_baseline_flag_24222)
-        }
-        popup.menu.add(Menu.NONE, 3, Menu.NONE, "Нет").apply {
-            setIcon(R.drawable.ic_baseline_flag_grey)
+        popup.menu.apply {
+            add(Menu.NONE, 0, Menu.NONE, "Высокий").apply {
+                setIcon(R.drawable.ic_baseline_flag_24)
+            }
+            add(Menu.NONE, 1, Menu.NONE, "Средний").apply {
+                setIcon(R.drawable.ic_baseline_flag_2422)
+            }
+            add(Menu.NONE, 2, Menu.NONE, "Низкий").apply {
+                setIcon(R.drawable.ic_baseline_flag_24222)
+            }
+            add(Menu.NONE, 3, Menu.NONE, "Нет").apply {
+                setIcon(R.drawable.ic_baseline_flag_grey)
+            }
         }
         popup.setOnMenuItemClickListener {
             when (it.itemId) {
                 0 -> {
-                    selectedColorTodo = "red"
-                    currentPriority = 3
+                    viewModel.changeSelectedColor("red")
+                    viewModel.changeCurrentPriority(3)
                 }
                 1 -> {
-                    selectedColorTodo = "yellow"
-                    currentPriority = 2
+                    viewModel.changeSelectedColor("yellow")
+                    viewModel.changeCurrentPriority(2)
                 }
                 2 -> {
-                    selectedColorTodo = "blue"
-                    currentPriority = 1
+                    viewModel.changeSelectedColor("blue")
+                    viewModel.changeCurrentPriority(1)
                 }
                 3 -> {
-                    selectedColorTodo = "grey"
-                    currentPriority = 0
+                    viewModel.changeSelectedColor("grey")
+                    viewModel.changeCurrentPriority(0)
                 }
             }
             return@setOnMenuItemClickListener true
