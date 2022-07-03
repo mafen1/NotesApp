@@ -31,11 +31,14 @@ class AddTodoViewModel @Inject constructor(
         }
     }
     fun changeSelectedColor(selectedColor: String){
-        _selectedColorTodo.value = selectedColor
-
+        viewModelScope.launch(Dispatchers.IO) {
+            _selectedColorTodo.postValue(selectedColor)
+        }
     }
     fun changeCurrentPriority(currentPriority: Int){
-        _currentPriority.value = currentPriority
+        viewModelScope.launch(Dispatchers.IO){
+            _currentPriority.postValue(currentPriority)
+        }
     }
 
 }
