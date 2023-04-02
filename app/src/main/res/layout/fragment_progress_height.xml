@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:example="http://schemas.android.com/apk/com.android.example.view"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:custom="http://schemas.android.com/apk/res-auto"
+    tools:context=".presentation.tree.progress.ProgressHeightFragment">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:text="Hello" />
+    
+    <com.example.notesapp.tree.circleprogress.ArcProgress
+        android:id="@+id/arc_progress"
+        android:background="#214193"
+        android:layout_marginStart="50dp"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        custom:arc_progress="65"
+        custom:arc_bottom_text="MEMORY"/>
+
+</FrameLayout>
